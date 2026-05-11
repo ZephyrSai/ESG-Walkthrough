@@ -1,3 +1,5 @@
+https://zephyrsai.github.io/ESG-Walkthrough/
+
 # Behind ESG Ratings — Interactive Walkthrough
 
 An interactive, multi-page walkthrough of the ESG metrics landscape, with **371 parameters** mapped across Environmental, Social and Governance pillars — each one tagged with the industry disclosure standard(s) that require it and the **capture method** that supports collection (SCADA / IoT, Digital Twin computation, AI compliance ingestion, enterprise system integration, or consultant review).
