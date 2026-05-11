@@ -36,6 +36,37 @@ body.js-ready .app-page.active {
 }
 
 /* nav */
+.brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
+  min-width: 0;
+}
+.brand-logo-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 106px;
+  height: 38px;
+  padding: 6px 8px;
+  border-radius: 10px;
+  background: rgba(248, 250, 252, .94);
+  border: 1px solid rgba(255, 255, 255, .16);
+}
+.brand-logo {
+  width: 90px;
+  height: 30px;
+  object-fit: contain;
+  object-position: center;
+  flex: 0 0 auto;
+}
+.brand-title {
+  color: #f8fafc;
+  font-weight: 700;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
 .nav-link {
   display: inline-flex;
   align-items: center;
@@ -43,6 +74,7 @@ body.js-ready .app-page.active {
   padding: 0 12px;
   border-radius: 8px;
   color: #cbd5e1;
+  white-space: nowrap;
   transition: color .18s ease, background .18s ease;
 }
 .nav-link:hover,
