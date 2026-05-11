@@ -1,0 +1,150 @@
+{
+  "pillar": "Governance",
+  "code": "G",
+  "summary": "Governance parameters — business conduct, board, anti-corruption, tax, lobbying, cyber, AI governance. Aligned with ESRS G1, GRI 200/Universal, G20/OECD Principles of Corporate Governance, SASB, ISO 37001/37301.",
+  "categories": [
+    {
+      "id":"G1",
+      "name":"Business Conduct & Ethics",
+      "standard_anchor":"ESRS G1 · GRI 205-206 · ISO 37001 · OECD Anti-Bribery Conv.",
+      "subcategories":[
+        {
+          "id":"G1-AC",
+          "name":"Anti-corruption & Bribery",
+          "parameters":[
+            { "id":"G1-AC-001","name":"Anti-corruption policy disclosed",            "unit":"y/n","standards":["GRI 205-2","ESRS G1-1","ISO 37001"],"capture":["ai_doc"],"automation":"high","desc":"Policy ingestion." },
+            { "id":"G1-AC-002","name":"% workforce trained on anti-corruption",       "unit":"%","standards":["GRI 205-2","ESRS G1-3"],"capture":["erp"],"automation":"high","desc":"LMS completion." },
+            { "id":"G1-AC-003","name":"% business partners trained / acknowledged code","unit":"%","standards":["GRI 205-2","ESRS G1-2"],"capture":["erp","ai_doc"],"automation":"high","desc":"Vendor onboarding." },
+            { "id":"G1-AC-004","name":"Operations assessed for corruption risks",   "unit":"%","standards":["GRI 205-1","ESRS G1-3"],"capture":["ai_doc"],"automation":"medium","desc":"Risk assessments." },
+            { "id":"G1-AC-005","name":"Confirmed corruption incidents",              "unit":"count","standards":["GRI 205-3","ESRS G1-4"],"capture":["ai_doc","erp"],"automation":"high","desc":"Case mgmt." },
+            { "id":"G1-AC-006","name":"Disciplinary actions related to corruption", "unit":"count","standards":["GRI 205-3","ESRS G1-4"],"capture":["erp"],"automation":"high","desc":"HR + Legal." },
+            { "id":"G1-AC-007","name":"Fines & settlements (corruption)",            "unit":"$","standards":["GRI 205-3","SASB"],"capture":["erp","ai_doc"],"automation":"high","desc":"Legal accruals." },
+            { "id":"G1-AC-008","name":"Anti-competitive conduct legal actions",      "unit":"count","standards":["GRI 206-1"],"capture":["ai_doc"],"automation":"medium","desc":"Litigation register." }
+          ]
+        },
+        {
+          "id":"G1-W",
+          "name":"Whistleblowing & speak-up",
+          "parameters":[
+            { "id":"G1-W-001","name":"Whistleblowing channel availability",         "unit":"qual","standards":["ESRS G1-1","EU Whistleblowing Dir."],"capture":["ai_doc"],"automation":"high","desc":"Channel coverage." },
+            { "id":"G1-W-002","name":"Reports received via whistleblowing",          "unit":"count","standards":["ESRS G1-1"],"capture":["erp","ai_doc"],"automation":"high","desc":"Ethics line system." },
+            { "id":"G1-W-003","name":"Reports substantiated",                        "unit":"%","standards":["ESRS G1-1"],"capture":["erp"],"automation":"high","desc":"Closure data." },
+            { "id":"G1-W-004","name":"Retaliation cases",                            "unit":"count","standards":["ESRS G1-1","EU Whistleblowing Dir."],"capture":["erp","ai_doc"],"automation":"high","desc":"Case flag." }
+          ]
+        },
+        {
+          "id":"G1-PP",
+          "name":"Payments practices",
+          "parameters":[
+            { "id":"G1-PP-001","name":"Avg days to pay suppliers (SMEs)",            "unit":"days","standards":["ESRS G1-6","UK PPP"],"capture":["erp"],"automation":"high","desc":"AP analytics." },
+            { "id":"G1-PP-002","name":"% invoices paid late",                        "unit":"%","standards":["ESRS G1-6"],"capture":["erp"],"automation":"high","desc":"AP analytics." },
+            { "id":"G1-PP-003","name":"Legal proceedings re: late payments",         "unit":"count","standards":["ESRS G1-6"],"capture":["ai_doc"],"automation":"medium","desc":"Litigation register." }
+          ]
+        }
+      ]
+    },
+    {
+      "id":"G2",
+      "name":"Board & Ownership",
+      "standard_anchor":"G20/OECD Principles · GRI 2 · ESRS GOV-1 · SASB",
+      "subcategories":[
+        {
+          "id":"G2-B",
+          "name":"Board composition & oversight",
+          "parameters":[
+            { "id":"G2-B-001","name":"Board size",                                   "unit":"count","standards":["GRI 2-9"],"capture":["ai_doc"],"automation":"high","desc":"Proxy / annual report." },
+            { "id":"G2-B-002","name":"% independent directors",                       "unit":"%","standards":["GRI 2-9","G20/OECD"],"capture":["ai_doc"],"automation":"high","desc":"Proxy." },
+            { "id":"G2-B-003","name":"% women on board",                             "unit":"%","standards":["GRI 405-1"],"capture":["ai_doc"],"automation":"high","desc":"Proxy." },
+            { "id":"G2-B-004","name":"Chair-CEO separation",                          "unit":"y/n","standards":["G20/OECD"],"capture":["ai_doc"],"automation":"high","desc":"Governance docs." },
+            { "id":"G2-B-005","name":"Avg board tenure",                              "unit":"years","standards":["GRI 2-9"],"capture":["ai_doc"],"automation":"high","desc":"Proxy." },
+            { "id":"G2-B-006","name":"Board attendance rate",                         "unit":"%","standards":["G20/OECD"],"capture":["ai_doc"],"automation":"high","desc":"Annual report." },
+            { "id":"G2-B-007","name":"ESG / sustainability committee exists",        "unit":"y/n","standards":["ESRS GOV-1","IFRS S2","TCFD"],"capture":["ai_doc"],"automation":"high","desc":"Committee charter." },
+            { "id":"G2-B-008","name":"Audit committee independence",                  "unit":"%","standards":["G20/OECD"],"capture":["ai_doc"],"automation":"high","desc":"Proxy." }
+          ]
+        },
+        {
+          "id":"G2-R",
+          "name":"Remuneration",
+          "parameters":[
+            { "id":"G2-R-001","name":"Say-on-pay vote outcome",                       "unit":"%","standards":["G20/OECD"],"capture":["ai_doc"],"automation":"high","desc":"AGM results." },
+            { "id":"G2-R-002","name":"% executive pay linked to ESG",                 "unit":"%","standards":["IFRS S2","ESRS GOV-3"],"capture":["ai_doc"],"automation":"high","desc":"Remuneration policy." },
+            { "id":"G2-R-003","name":"Clawback policy in place",                      "unit":"y/n","standards":["G20/OECD","SEC"],"capture":["ai_doc"],"automation":"high","desc":"Policy docs." }
+          ]
+        },
+        {
+          "id":"G2-O",
+          "name":"Ownership & shareholder rights",
+          "parameters":[
+            { "id":"G2-O-001","name":"Dual-class share structure",                    "unit":"y/n","standards":["G20/OECD"],"capture":["ai_doc"],"automation":"high","desc":"Charter." },
+            { "id":"G2-O-002","name":"Largest shareholder %",                         "unit":"%","standards":["GRI 2-1","G20/OECD"],"capture":["ai_doc","erp"],"automation":"high","desc":"Share register." },
+            { "id":"G2-O-003","name":"Related-party transactions disclosed",         "unit":"$","standards":["IAS 24","G20/OECD"],"capture":["ai_doc","erp"],"automation":"high","desc":"Note disclosure." }
+          ]
+        }
+      ]
+    },
+    {
+      "id":"G3",
+      "name":"Risk Management & Internal Controls",
+      "standard_anchor":"COSO ERM · ISO 31000 · SOX · ESRS GOV-5",
+      "subcategories":[
+        {
+          "id":"G3-IC",
+          "name":"Controls",
+          "parameters":[
+            { "id":"G3-IC-001","name":"SOX 404 / ICFR effectiveness",                "unit":"y/n","standards":["SOX","PCAOB"],"capture":["ai_doc"],"automation":"high","desc":"Auditor attestation." },
+            { "id":"G3-IC-002","name":"ERM framework adopted",                        "unit":"y/n","standards":["COSO","ISO 31000"],"capture":["ai_doc"],"automation":"high","desc":"Risk policy." },
+            { "id":"G3-IC-003","name":"Material weaknesses disclosed",                "unit":"count","standards":["SOX"],"capture":["ai_doc"],"automation":"high","desc":"10-K disclosure." },
+            { "id":"G3-IC-004","name":"Cyber risk governance — board oversight",     "unit":"y/n","standards":["NIST CSF","SEC Cyber"],"capture":["ai_doc"],"automation":"high","desc":"10-K Item 1C." },
+            { "id":"G3-IC-005","name":"Material cyber incidents",                     "unit":"count","standards":["SEC Cyber 8-K Item 1.05"],"capture":["ai_doc","erp"],"automation":"high","desc":"Disclosure." },
+            { "id":"G3-IC-006","name":"ISO 27001 certified entities",                 "unit":"count","standards":["ISO 27001"],"capture":["ai_doc"],"automation":"high","desc":"Certificate ingest." }
+          ]
+        }
+      ]
+    },
+    {
+      "id":"G4",
+      "name":"Tax, Lobbying & Political",
+      "standard_anchor":"GRI 207 · BEPS · ESRS G1-5",
+      "subcategories":[
+        {
+          "id":"G4-T",
+          "name":"Tax",
+          "parameters":[
+            { "id":"G4-T-001","name":"Tax strategy disclosed",                        "unit":"y/n","standards":["GRI 207-1"],"capture":["ai_doc"],"automation":"high","desc":"Public statement." },
+            { "id":"G4-T-002","name":"Country-by-country tax (CbCR)",                  "unit":"$","standards":["GRI 207-4","BEPS Action 13","EU Pub CbCR"],"capture":["erp","ai_doc"],"automation":"high","desc":"Tax filings." },
+            { "id":"G4-T-003","name":"Effective tax rate",                            "unit":"%","standards":["GRI 207-4"],"capture":["erp"],"automation":"high","desc":"FS data." },
+            { "id":"G4-T-004","name":"Operations in tax havens",                       "unit":"count","standards":["GRI 207-4","EU list"],"capture":["erp","ai_doc"],"automation":"high","desc":"Subsidiary list × jurisdiction." }
+          ]
+        },
+        {
+          "id":"G4-L",
+          "name":"Lobbying & political",
+          "parameters":[
+            { "id":"G4-L-001","name":"Total lobbying spend",                          "unit":"$","standards":["ESRS G1-5","LDA"],"capture":["erp","ai_doc"],"automation":"high","desc":"GL + filings (EU TR, US LDA)." },
+            { "id":"G4-L-002","name":"Political contributions",                       "unit":"$","standards":["ESRS G1-5","GRI 415-1"],"capture":["erp","ai_doc"],"automation":"high","desc":"GL." },
+            { "id":"G4-L-003","name":"Memberships in industry associations",         "unit":"count","standards":["ESRS G1-5"],"capture":["ai_doc","erp"],"automation":"high","desc":"Subscriptions." },
+            { "id":"G4-L-004","name":"Climate-lobby alignment review (InfluenceMap-style)","unit":"qual","standards":["ESRS E1-2 / G1-5"],"capture":["ai_doc"],"automation":"medium","desc":"Position review." }
+          ]
+        }
+      ]
+    },
+    {
+      "id":"G5",
+      "name":"Digital & AI Governance",
+      "standard_anchor":"ISO 42001 · EU AI Act · NIST AI RMF",
+      "subcategories":[
+        {
+          "id":"G5-AI",
+          "name":"AI governance",
+          "parameters":[
+            { "id":"G5-AI-001","name":"AI governance policy in place",                "unit":"y/n","standards":["ISO 42001","NIST AI RMF","EU AI Act"],"capture":["ai_doc"],"automation":"high","desc":"Policy ingest." },
+            { "id":"G5-AI-002","name":"High-risk AI systems inventory",                "unit":"count","standards":["EU AI Act"],"capture":["ai_doc","erp"],"automation":"medium","desc":"Inventory + classification." },
+            { "id":"G5-AI-003","name":"AI conformity assessments completed",          "unit":"count","standards":["EU AI Act"],"capture":["ai_doc"],"automation":"medium","desc":"Audit records." },
+            { "id":"G5-AI-004","name":"AI incidents reported",                         "unit":"count","standards":["EU AI Act"],"capture":["ai_doc","erp"],"automation":"high","desc":"Incident system." },
+            { "id":"G5-AI-005","name":"ISO 42001 certified scope",                    "unit":"qual","standards":["ISO 42001"],"capture":["ai_doc"],"automation":"high","desc":"Certificate ingest." }
+          ]
+        }
+      ]
+    }
+  ]
+}

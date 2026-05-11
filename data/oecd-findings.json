@@ -1,0 +1,71 @@
+{
+  "report": "Behind ESG Ratings — Unpacking Sustainability Metrics",
+  "publisher": "OECD",
+  "year": 2025,
+  "doi": "10.1787/3f055f0c-en",
+  "headline_stats": [
+    { "label": "ESG metrics analysed", "value": "≈ 2,000" },
+    { "label": "Rating products covered",  "value": "8" },
+    { "label": "Market share covered",     "value": ">80%" },
+    { "label": "ESG topics in scope",      "value": "23" },
+    { "label": "Input-based metrics",      "value": "68%" },
+    { "label": "Quantitative metrics",     "value": "28%" },
+    { "label": "Dynamic / forward-looking","value": "5%" },
+    { "label": "Supply-chain metrics",     "value": "7%" }
+  ],
+  "topics": [
+    { "id": 1,  "name": "Pollution & Waste",            "pillar": "E", "avg": 18, "min": 3, "max": 43, "total": 147, "policies": 15,"activities":55, "outputs": 73, "businessEnv": 1, "qual": 73, "quant": 70 },
+    { "id": 2,  "name": "Energy Management",            "pillar": "E", "avg": 10, "min": 0, "max": 34, "total": 83,  "policies": 9, "activities":26, "outputs": 46, "businessEnv": 0, "qual": 43, "quant": 36 },
+    { "id": 3,  "name": "GHG Emissions",                "pillar": "E", "avg": 19, "min": 1, "max": 47, "total": 148, "policies": 26,"activities":51, "outputs": 70, "businessEnv": 0, "qual": 82, "quant": 57 },
+    { "id": 4,  "name": "Water Management",             "pillar": "E", "avg": 9,  "min": 5, "max": 13, "total": 70,  "policies": 10,"activities":30, "outputs": 21, "businessEnv": 5, "qual": 48, "quant": 19 },
+    { "id": 5,  "name": "Biodiversity & Land Use",      "pillar": "E", "avg": 5,  "min": 2, "max": 9,  "total": 39,  "policies": 16,"activities":16, "outputs": 7,  "businessEnv": 0, "qual": 35, "quant": 2 },
+    { "id": 6,  "name": "Climate Resilience & Adaptation","pillar":"E","avg":6,  "min": 0, "max": 19, "total": 45,  "policies": 6, "activities":15, "outputs": 0,  "businessEnv": 22,"qual": 39, "quant": 4 },
+    { "id": 7,  "name": "Environmental Management",     "pillar": "E", "avg": 20, "min": 1, "max": 43, "total": 161, "policies": 16,"activities":120,"outputs": 18, "businessEnv": 0, "qual": 122,"quant": 30 },
+    { "id": 8,  "name": "Diversity, Equity & Inclusion","pillar": "S", "avg": 13, "min": 0, "max": 40, "total": 103, "policies": 17,"activities":25, "outputs": 56, "businessEnv": 0, "qual": 58, "quant": 42 },
+    { "id": 9,  "name": "Health & Safety",              "pillar": "S", "avg": 16, "min": 7, "max": 31, "total": 125, "policies": 20,"activities":49, "outputs": 52, "businessEnv": 0, "qual": 78, "quant": 44 },
+    { "id": 10, "name": "Consumer Interests",            "pillar": "S", "avg": 7,  "min": 0, "max": 17, "total": 52,  "policies": 10,"activities":25, "outputs": 16, "businessEnv": 0, "qual": 47, "quant": 3 },
+    { "id": 11, "name": "Data Privacy & Security",       "pillar": "S", "avg": 6,  "min": 1, "max": 13, "total": 47,  "policies": 9, "activities":24, "outputs": 14, "businessEnv": 0, "qual": 38, "quant": 6 },
+    { "id": 12, "name": "Community Relations & Impacts","pillar": "S", "avg": 4,  "min": 2, "max": 9,  "total": 30,  "policies": 7, "activities":15, "outputs": 7,  "businessEnv": 1, "qual": 24, "quant": 6 },
+    { "id": 13, "name": "Human Capital",                "pillar": "S", "avg": 9,  "min": 2, "max": 17, "total": 69,  "policies": 10,"activities":41, "outputs": 15, "businessEnv": 0, "qual": 44, "quant": 22 },
+    { "id": 14, "name": "Labour Rights",                "pillar": "S", "avg": 10, "min": 3, "max": 26, "total": 82,  "policies": 37,"activities":26, "outputs": 15, "businessEnv": 0, "qual": 69, "quant": 10 },
+    { "id": 15, "name": "Human Rights",                 "pillar": "S", "avg": 10, "min": 0, "max": 33, "total": 82,  "policies": 25,"activities":46, "outputs": 9,  "businessEnv": 0, "qual": 71, "quant": 6 },
+    { "id": 16, "name": "Competition",                  "pillar": "G", "avg": 1,  "min": 0, "max": 6,  "total": 11,  "policies": 3, "activities":4,  "outputs": 4,  "businessEnv": 0, "qual": 10, "quant": 1 },
+    { "id": 17, "name": "Corruption, bribery & fraud",  "pillar": "G", "avg": 5,  "min": 0, "max": 15, "total": 42,  "policies": 15,"activities":15, "outputs": 11, "businessEnv": 1, "qual": 36, "quant": 6 },
+    { "id": 18, "name": "Corporate Governance",         "pillar": "G", "avg": 35, "min": 4, "max": 113,"total": 280, "policies": 51,"activities":131,"outputs": 83, "businessEnv": 3, "qual": 217,"quant": 60 },
+    { "id": 19, "name": "Taxation",                     "pillar": "G", "avg": 2,  "min": 0, "max": 6,  "total": 15,  "policies": 2, "activities":9,  "outputs": 4,  "businessEnv": 0, "qual": 14, "quant": 1 },
+    { "id": 20, "name": "Business Resilience",          "pillar": "G", "avg": 5,  "min": 0, "max": 10, "total": 39,  "policies": 5, "activities":19, "outputs": 8,  "businessEnv": 7, "qual": 30, "quant": 5 },
+    { "id": 21, "name": "Product Stewardship",          "pillar": "G", "avg": 6,  "min": 0, "max": 16, "total": 45,  "policies": 6, "activities":27, "outputs": 8,  "businessEnv": 0, "qual": 34, "quant": 8 },
+    { "id": 22, "name": "Business Ethics",              "pillar": "G", "avg": 24, "min": 2, "max": 124,"total": 191, "policies": 14,"activities":155,"outputs": 18, "businessEnv": 0, "qual": 106,"quant": 79 },
+    { "id": 23, "name": "Corporate Responsibility",     "pillar": "G", "avg": 5,  "min": 0, "max": 13, "total": 42,  "policies": 8, "activities":32, "outputs": 4,  "businessEnv": 0, "qual": 37, "quant": 6 }
+  ],
+  "metric_characteristic_overall": {
+    "Policies": 18,
+    "Activities": 50,
+    "Outputs": 30,
+    "BusinessEnv": 2
+  },
+  "qual_vs_quant_overall": {
+    "Qualitative": 72,
+    "Quantitative": 28
+  },
+  "supply_chain_metrics": [
+    { "topic": "GHG Emissions",                "count": 40 },
+    { "topic": "Environmental Management",     "count": 23 },
+    { "topic": "Corporate Governance",         "count": 20 },
+    { "topic": "Human Rights",                 "count": 16 },
+    { "topic": "Labour Rights",                "count": 6 },
+    { "topic": "Diversity, Equity & Inclusion","count": 6 },
+    { "topic": "Corruption, bribery & fraud",  "count": 5 },
+    { "topic": "Business Resilience",          "count": 3 },
+    { "topic": "Health & Safety",              "count": 3 },
+    { "topic": "Biodiversity & Land Use",      "count": 2 },
+    { "topic": "Climate Resilience & Adaptation","count": 1 }
+  ],
+  "divergence_callouts": [
+    "Corporate Governance ranges from 4 to 113 metrics across providers (28× spread).",
+    "GHG Emissions ranges from 1 to 47 metrics — same topic, different rating products.",
+    "11 of 23 topics are entirely absent from at least one rating product.",
+    "Only 7% of metrics relate to supply-chain risks — yet RBC due diligence expects coverage.",
+    "Only 5% of metrics are forward-looking / dynamic (targets, trends, trajectories)."
+  ]
+}

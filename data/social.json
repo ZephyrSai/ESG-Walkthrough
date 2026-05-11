@@ -1,0 +1,141 @@
+{
+  "pillar": "Social",
+  "code": "S",
+  "summary": "Social parameters across own workforce, value-chain workers, affected communities, consumers/end-users — aligned with ESRS S1-S4, GRI 400 series, SASB, UNGPs, ILO Core Conventions.",
+  "categories": [
+    {
+      "id": "S1",
+      "name": "Own Workforce",
+      "standard_anchor": "ESRS S1 · GRI 401-410 · ILO · UNGPs · SASB",
+      "subcategories": [
+        {
+          "id": "S1-WC",
+          "name": "Working Conditions",
+          "parameters": [
+            { "id":"S1-WC-001","name":"Total headcount (FTE)",                     "unit":"count","standards":["ESRS S1-6","GRI 2-7"],"capture":["erp"],"automation":"high","desc":"SAP HCM / Workday." },
+            { "id":"S1-WC-002","name":"Headcount by gender / region / contract",  "unit":"count","standards":["ESRS S1-6","GRI 2-7"],"capture":["erp"],"automation":"high","desc":"HR master breakdown." },
+            { "id":"S1-WC-003","name":"Non-employee workforce (contractors, agency)","unit":"count","standards":["ESRS S1-7"],"capture":["erp","ai_doc"],"automation":"high","desc":"Vendor invoices + master." },
+            { "id":"S1-WC-004","name":"Coverage of collective bargaining agreements","unit":"%","standards":["ESRS S1-8","GRI 2-30"],"capture":["erp","ai_doc"],"automation":"high","desc":"HR + agreements." },
+            { "id":"S1-WC-005","name":"Workers covered by social dialogue mechanisms","unit":"%","standards":["ESRS S1-8"],"capture":["erp"],"automation":"high","desc":"HR data." },
+            { "id":"S1-WC-006","name":"Living wage gap (vs reference)",            "unit":"%","standards":["ESRS S1-10","WBA"],"capture":["erp","ai_doc"],"automation":"medium","desc":"Payroll vs Anker/WageIndicator." },
+            { "id":"S1-WC-007","name":"Gender pay gap (mean & median)",            "unit":"%","standards":["ESRS S1-16","GRI 405-2"],"capture":["erp"],"automation":"high","desc":"Payroll analytics." },
+            { "id":"S1-WC-008","name":"CEO pay ratio",                              "unit":"ratio","standards":["ESRS S1-16","SEC"],"capture":["erp","ai_doc"],"automation":"high","desc":"Payroll + proxy." },
+            { "id":"S1-WC-009","name":"Working hours — average per worker",         "unit":"hrs","standards":["ILO C1"],"capture":["erp"],"automation":"high","desc":"Time & attendance." },
+            { "id":"S1-WC-010","name":"Overtime hours",                              "unit":"hrs","standards":["ILO C1"],"capture":["erp"],"automation":"high","desc":"T&A overtime." }
+          ]
+        },
+        {
+          "id": "S1-EO",
+          "name": "Equal Opportunity & Inclusion",
+          "parameters": [
+            { "id":"S1-EO-001","name":"% women in workforce",                       "unit":"%","standards":["ESRS S1-9","GRI 405-1"],"capture":["erp"],"automation":"high","desc":"HR." },
+            { "id":"S1-EO-002","name":"% women in management",                      "unit":"%","standards":["ESRS S1-9","GRI 405-1","SASB"],"capture":["erp"],"automation":"high","desc":"Org chart levels." },
+            { "id":"S1-EO-003","name":"% women on board",                            "unit":"%","standards":["ESRS S1-9","GRI 405-1","SEC"],"capture":["ai_doc"],"automation":"high","desc":"Proxy statement." },
+            { "id":"S1-EO-004","name":"% under-represented minorities (region-specific)","unit":"%","standards":["ESRS S1-9","GRI 405-1"],"capture":["erp"],"automation":"high","desc":"Voluntary self-ID." },
+            { "id":"S1-EO-005","name":"Workers with disabilities",                  "unit":"%","standards":["ESRS S1-12"],"capture":["erp","ai_doc"],"automation":"medium","desc":"Confidential disclosure." },
+            { "id":"S1-EO-006","name":"Discrimination incidents (substantiated)",   "unit":"count","standards":["GRI 406-1","ESRS S1-17"],"capture":["ai_doc","erp"],"automation":"medium","desc":"HR case mgmt." },
+            { "id":"S1-EO-007","name":"Pay equity adjustments made",                "unit":"$","standards":["ESRS S1-16"],"capture":["erp"],"automation":"high","desc":"Payroll adjustments." }
+          ]
+        },
+        {
+          "id": "S1-HS",
+          "name": "Health & Safety",
+          "parameters": [
+            { "id":"S1-HS-001","name":"Fatalities (employee + contractor)",          "unit":"count","standards":["ESRS S1-14","GRI 403-9","SASB"],"capture":["scada","ai_doc","erp"],"automation":"high","desc":"Incident system + EHS." },
+            { "id":"S1-HS-002","name":"Lost-time injury frequency rate (LTIFR)",     "unit":"/200k hrs","standards":["ESRS S1-14","GRI 403-9","OSHA"],"capture":["erp"],"automation":"high","desc":"EHS module." },
+            { "id":"S1-HS-003","name":"Total recordable incident rate (TRIR)",      "unit":"/200k hrs","standards":["GRI 403-9","OSHA"],"capture":["erp"],"automation":"high","desc":"EHS module." },
+            { "id":"S1-HS-004","name":"High-consequence work-related injuries",      "unit":"count","standards":["ESRS S1-14","GRI 403-9"],"capture":["erp","ai_doc"],"automation":"high","desc":"EHS." },
+            { "id":"S1-HS-005","name":"Occupational illnesses",                      "unit":"count","standards":["ESRS S1-14","GRI 403-10"],"capture":["erp","ai_doc"],"automation":"high","desc":"Occ health records." },
+            { "id":"S1-HS-006","name":"Near-miss reporting rate",                     "unit":"count","standards":["ESRS S1-14"],"capture":["erp","scada"],"automation":"high","desc":"Mobile reporting." },
+            { "id":"S1-HS-007","name":"ISO 45001 certified sites",                   "unit":"count","standards":["ISO 45001"],"capture":["ai_doc"],"automation":"high","desc":"Certificate ingest." },
+            { "id":"S1-HS-008","name":"Workers covered by H&S management system",   "unit":"%","standards":["GRI 403-8","ESRS S1-14"],"capture":["erp","ai_doc"],"automation":"high","desc":"HR + EHS coverage." },
+            { "id":"S1-HS-009","name":"Process safety events (Tier 1, Tier 2)",     "unit":"count","standards":["API 754","SASB EM-EP-540a.1"],"capture":["scada","ai_doc"],"automation":"high","desc":"DCS alarms + incident classification." },
+            { "id":"S1-HS-010","name":"H&S training hours",                          "unit":"hrs","standards":["ESRS S1-14","GRI 403-5"],"capture":["erp"],"automation":"high","desc":"LMS." }
+          ]
+        },
+        {
+          "id": "S1-TD",
+          "name": "Training & Development",
+          "parameters": [
+            { "id":"S1-TD-001","name":"Avg training hours per employee",             "unit":"hrs","standards":["ESRS S1-13","GRI 404-1"],"capture":["erp"],"automation":"high","desc":"LMS." },
+            { "id":"S1-TD-002","name":"Skills training spend",                       "unit":"$","standards":["ESRS S1-13"],"capture":["erp"],"automation":"high","desc":"GL." },
+            { "id":"S1-TD-003","name":"% receiving regular performance reviews",     "unit":"%","standards":["GRI 404-3"],"capture":["erp"],"automation":"high","desc":"HR." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S2",
+      "name": "Workers in the Value Chain",
+      "standard_anchor": "ESRS S2 · OECD Guidelines · UNGPs · ILO Core",
+      "subcategories": [
+        {
+          "id":"S2-SC",
+          "name":"Supply chain due diligence",
+          "parameters":[
+            { "id":"S2-SC-001","name":"Suppliers screened on social criteria",      "unit":"%","standards":["GRI 414-1","ESRS S2-1"],"capture":["ai_doc","erp"],"automation":"high","desc":"Supplier onboarding." },
+            { "id":"S2-SC-002","name":"Suppliers audited (social)",                 "unit":"count","standards":["GRI 414-2","ESRS S2-3"],"capture":["ai_doc"],"automation":"high","desc":"Audit reports (SMETA etc.)." },
+            { "id":"S2-SC-003","name":"Non-conformances identified",                "unit":"count","standards":["GRI 414-2"],"capture":["ai_doc"],"automation":"high","desc":"Audit findings." },
+            { "id":"S2-SC-004","name":"Corrective actions closed",                  "unit":"%","standards":["ESRS S2-3"],"capture":["ai_doc","erp"],"automation":"medium","desc":"CAR system." },
+            { "id":"S2-SC-005","name":"Spend in high-risk geographies",              "unit":"%","standards":["ESRS S2-4","TISC"],"capture":["erp"],"automation":"high","desc":"Geo + Maplecroft index." },
+            { "id":"S2-SC-006","name":"Forced labour incidents identified",          "unit":"count","standards":["ESRS S2-4","GRI 409-1","UFLPA"],"capture":["ai_doc"],"automation":"medium","desc":"Adverse media + audit." },
+            { "id":"S2-SC-007","name":"Child labour incidents identified",           "unit":"count","standards":["ESRS S2-4","GRI 408-1"],"capture":["ai_doc"],"automation":"medium","desc":"Audit + grievance." },
+            { "id":"S2-SC-008","name":"Living wage in supply chain (% covered)",     "unit":"%","standards":["ESRS S2-4","WBA"],"capture":["ai_doc"],"automation":"low","desc":"Supplier survey." }
+          ]
+        },
+        {
+          "id":"S2-GR",
+          "name":"Grievance & Remedy",
+          "parameters":[
+            { "id":"S2-GR-001","name":"Operational-level grievance mechanisms in place","unit":"y/n","standards":["UNGP 31","ESRS S2-3"],"capture":["ai_doc"],"automation":"high","desc":"Policy / hotline." },
+            { "id":"S2-GR-002","name":"Grievances received (workforce + value chain)","unit":"count","standards":["ESRS S2-3"],"capture":["erp","ai_doc"],"automation":"high","desc":"Case mgmt." },
+            { "id":"S2-GR-003","name":"Grievances closed / remediated",              "unit":"%","standards":["ESRS S2-3"],"capture":["erp"],"automation":"high","desc":"Closure tracking." }
+          ]
+        }
+      ]
+    },
+    {
+      "id":"S3",
+      "name":"Affected Communities",
+      "standard_anchor":"ESRS S3 · GRI 411-413 · IFC PS5/PS7 · UNDRIP",
+      "subcategories":[
+        {
+          "id":"S3-C",
+          "name":"Community engagement & impacts",
+          "parameters":[
+            { "id":"S3-C-001","name":"Operations with community engagement plans","unit":"%","standards":["GRI 413-1","ESRS S3-2"],"capture":["ai_doc"],"automation":"high","desc":"Site SEPs." },
+            { "id":"S3-C-002","name":"Operations with significant actual/potential impacts","unit":"count","standards":["GRI 413-2","ESRS S3-3"],"capture":["ai_doc"],"automation":"medium","desc":"ESIA." },
+            { "id":"S3-C-003","name":"Indigenous Peoples — FPIC processes",         "unit":"count","standards":["IFC PS7","UNDRIP","GRI 411-1","ESRS S3-2"],"capture":["ai_doc"],"automation":"medium","desc":"FPIC records." },
+            { "id":"S3-C-004","name":"Resettlement events",                          "unit":"count","standards":["IFC PS5","ESRS S3-4"],"capture":["ai_doc"],"automation":"medium","desc":"RAP records." },
+            { "id":"S3-C-005","name":"Land disputes (active)",                       "unit":"count","standards":["ESRS S3-4"],"capture":["ai_doc"],"automation":"medium","desc":"Legal cases / NGO reports." },
+            { "id":"S3-C-006","name":"Community investment ($)",                     "unit":"$","standards":["GRI 203-1","B4SI"],"capture":["erp"],"automation":"high","desc":"Donations + projects." },
+            { "id":"S3-C-007","name":"Local procurement share",                      "unit":"%","standards":["GRI 204-1","ESRS S3-4"],"capture":["erp"],"automation":"high","desc":"Supplier geo." },
+            { "id":"S3-C-008","name":"Local hiring share",                           "unit":"%","standards":["GRI 202-2","ESRS S3-4"],"capture":["erp"],"automation":"high","desc":"HR address vs site." },
+            { "id":"S3-C-009","name":"Tax paid by jurisdiction (country-by-country)","unit":"$","standards":["GRI 207-4","BEPS CbCR","ESRS"],"capture":["erp"],"automation":"high","desc":"Statutory filings." }
+          ]
+        }
+      ]
+    },
+    {
+      "id":"S4",
+      "name":"Consumers & End-users",
+      "standard_anchor":"ESRS S4 · GRI 416-418 · SASB · Consumer Protection law",
+      "subcategories":[
+        {
+          "id":"S4-P",
+          "name":"Product safety & responsible practices",
+          "parameters":[
+            { "id":"S4-P-001","name":"Product recalls",                              "unit":"count","standards":["GRI 416-2","SASB"],"capture":["erp","ai_doc"],"automation":"high","desc":"Recall log." },
+            { "id":"S4-P-002","name":"Product safety incidents — serious injury",   "unit":"count","standards":["GRI 416-2","ESRS S4-3"],"capture":["ai_doc"],"automation":"medium","desc":"Customer complaints + reg." },
+            { "id":"S4-P-003","name":"Non-compliance with product safety regs",     "unit":"count","standards":["GRI 416-2","ESRS S4-3"],"capture":["ai_doc","erp"],"automation":"high","desc":"Reg notices." },
+            { "id":"S4-P-004","name":"Marketing & labelling non-compliance",        "unit":"count","standards":["GRI 417-2/417-3"],"capture":["ai_doc"],"automation":"medium","desc":"Regulator letters." },
+            { "id":"S4-P-005","name":"Data breaches",                                "unit":"count","standards":["GRI 418-1","ESRS S4-3","GDPR"],"capture":["erp","ai_doc"],"automation":"high","desc":"InfoSec system + notifications." },
+            { "id":"S4-P-006","name":"Customers affected by breaches",               "unit":"count","standards":["GRI 418-1","GDPR"],"capture":["erp","ai_doc"],"automation":"high","desc":"Breach reports." },
+            { "id":"S4-P-007","name":"Accessibility — products meeting WCAG/EN 301 549","unit":"%","standards":["ESRS S4-4","EAA"],"capture":["ai_doc"],"automation":"medium","desc":"Conformance reports." },
+            { "id":"S4-P-008","name":"Affordability programmes (low-income access)","unit":"qual","standards":["ESRS S4-4"],"capture":["ai_doc"],"automation":"low","desc":"Programme docs." }
+          ]
+        }
+      ]
+    }
+  ]
+}

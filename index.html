@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Behind ESG Ratings — Interactive Walkthrough</title>
+  <meta name="description" content="An interactive deep-dive into ESG rating parameters with industry-standard schemas (ESRS, IFRS S2, GHG Protocol, GRI, TNFD) — and a map of how Digital Twin / SCADA / AI document ingestion automates capture." />
+
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- ECharts -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+  <!-- Inter font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: { 950: '#0a0e1a', 900: '#0f1424', 800: '#161c2e', 700: '#212a40', 600: '#2c3856' },
+            accent: { DEFAULT: '#10b981', 50:'#ecfdf5', 100:'#d1fae5', 500:'#10b981', 600:'#059669', 700:'#047857' },
+            env: '#10b981',
+            soc: '#3b82f6',
+            gov: '#a855f7',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-ink-950 text-slate-100 font-sans antialiased min-h-screen">
+
+  <!-- TOP NAV -->
+  <nav class="sticky top-0 z-40 backdrop-blur-md bg-ink-950/80 border-b border-ink-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <a href="#overview" class="flex items-center gap-2 group" data-nav>
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-500 to-blue-500 flex items-center justify-center font-bold text-ink-950">E</div>
+        <span class="font-semibold tracking-tight">Behind ESG Ratings</span>
+        <span class="hidden md:inline text-xs text-slate-500 ml-2">interactive walkthrough</span>
+      </a>
+      <div class="hidden md:flex items-center gap-1 text-sm">
+        <a href="#overview"   class="nav-link" data-nav>Journey</a>
+        <a href="#schema"     class="nav-link" data-nav>Schema Explorer</a>
+        <a href="#landscape"  class="nav-link" data-nav>Landscape</a>
+        <a href="#environmental" class="nav-link" data-nav>Environmental</a>
+        <a href="#social"     class="nav-link" data-nav>Social</a>
+        <a href="#governance" class="nav-link" data-nav>Governance</a>
+        <a href="#coverage"   class="nav-link" data-nav>Our Coverage</a>
+        <a href="#standards"  class="nav-link" data-nav>Standards</a>
+      </div>
+      <button id="navToggle" class="md:hidden text-slate-300 p-2" aria-label="menu">☰</button>
+    </div>
+    <div id="mobileNav" class="md:hidden hidden border-t border-ink-700 px-4 py-3 space-y-1 text-sm">
+      <a href="#overview"      class="block py-2" data-nav>Journey</a>
+      <a href="#schema"        class="block py-2" data-nav>Schema Explorer</a>
+      <a href="#landscape"     class="block py-2" data-nav>Landscape</a>
+      <a href="#environmental" class="block py-2" data-nav>Environmental</a>
+      <a href="#social"        class="block py-2" data-nav>Social</a>
+      <a href="#governance"    class="block py-2" data-nav>Governance</a>
+      <a href="#coverage"      class="block py-2" data-nav>Our Coverage</a>
+      <a href="#standards"     class="block py-2" data-nav>Standards</a>
+    </div>
+  </nav>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- ============ OVERVIEW ============ -->
+    <section id="overview" class="app-page active py-16 lg:py-24">
+      <div class="grid lg:grid-cols-12 gap-10 items-center">
+        <div class="lg:col-span-7">
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-accent/10 text-accent-500 border border-accent/30">
+            OECD 2025 · ESRS · IFRS S2 · GHG Protocol · TNFD
+          </span>
+          <h1 class="mt-5 text-4xl lg:text-6xl font-bold tracking-tight leading-tight">
+            ESG evidence,<br/>
+            <span class="bg-gradient-to-r from-accent-500 via-emerald-300 to-blue-400 bg-clip-text text-transparent">ready for verification.</span>
+          </h1>
+          <p class="mt-5 text-lg text-slate-300 max-w-2xl">
+            ESG ratings diverge because the underlying <em>metrics</em> diverge. We bridge that gap by turning operational data, documents, ERP records, compliance controls, and consultant inputs into a traceable evidence layer: <strong>371 tagged ESG parameters</strong> mapped to source systems, standards, automation level, and report-ready audit trails.
+          </p>
+          <div class="mt-7 flex flex-wrap gap-3">
+            <a href="#environmental" class="btn-primary" data-nav>Explore Environmental →</a>
+            <a href="#landscape"     class="btn-ghost" data-nav>Why ESG ratings disagree</a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5">
+          <div class="grid grid-cols-2 gap-3">
+            <div class="stat-card"><div class="stat-num text-env" id="statEnv">…</div><div class="stat-label">Environmental parameters</div></div>
+            <div class="stat-card"><div class="stat-num text-soc" id="statSoc">…</div><div class="stat-label">Social parameters</div></div>
+            <div class="stat-card"><div class="stat-num text-gov" id="statGov">…</div><div class="stat-label">Governance parameters</div></div>
+            <div class="stat-card"><div class="stat-num text-accent-500" id="statStd">…</div><div class="stat-label">Standards mapped</div></div>
+            <div class="stat-card col-span-2"><div class="stat-num text-amber-400" id="statHigh">…</div><div class="stat-label">High-automation parameters in the evidence model</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- The 5 capture methods -->
+      <div class="mt-16">
+        <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider">Services that feed the evidence layer</h2>
+        <div id="captureMethods" class="mt-4 grid sm:grid-cols-2 lg:grid-cols-5 gap-3"></div>
+      </div>
+
+      <div class="mt-12">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <h2 class="text-2xl lg:text-3xl font-bold tracking-tight">The value bridge journey</h2>
+            <p class="mt-2 text-slate-400 max-w-2xl">A guided path from fragmented ESG data to consultant-ready, auditable reporting evidence.</p>
+          </div>
+          <button class="btn-subtle" id="startWalkthrough">Start guided view</button>
+        </div>
+        <div id="cascadeSteps" class="cascade-shell"></div>
+      </div>
+
+      <div class="mt-12 value-bridge">
+        <div class="bridge-copy">
+          <div class="text-xs uppercase tracking-wider text-accent-500">What we bridge</div>
+          <h2>From raw operational reality to verified ESG reporting.</h2>
+          <p>
+            The value is not limited to energy monitoring. Energy is one high-confidence source, but the platform also supports compliance automation, policy and permit extraction, HR and supplier evidence, governance controls, standards mapping, exception review, and report pack generation.
+          </p>
+        </div>
+        <div class="bridge-grid">
+          <div class="bridge-card">
+            <span>01</span>
+            <h3>Source capture</h3>
+            <p>SCADA, IoT, digital twins, ERP, HRIS, procurement, maintenance systems, and approved manual inputs.</p>
+          </div>
+          <div class="bridge-card">
+            <span>02</span>
+            <h3>Compliance automation</h3>
+            <p>AI document ingestion for permits, policies, certificates, supplier files, utility bills, contracts, board packs, and audit evidence.</p>
+          </div>
+          <div class="bridge-card">
+            <span>03</span>
+            <h3>Consultant workspace</h3>
+            <p>Structured review queues, traceable assumptions, gaps, exceptions, evidence confidence, and standard-by-standard mapping.</p>
+          </div>
+          <div class="bridge-card">
+            <span>04</span>
+            <h3>Verified report pack</h3>
+            <p>Auditable ESG datasets with source lineage, supporting files, calculation basis, and draft disclosures ready for assurance review.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 chart-card">
+        <div class="chart-title">Evidence journey — from source data to verified reporting</div>
+        <div class="chart-sub">A service-flow view showing how energy, compliance, enterprise, and consultant inputs become auditable ESG outputs.</div>
+        <div id="chart_evidenceFlow" class="chart-canvas h-96"></div>
+      </div>
+
+      <div class="mt-10 page-directory">
+        <div class="directory-head">
+          <div>
+            <div class="text-xs uppercase tracking-wider text-accent-500">Walkthrough pages</div>
+            <h2>The journey from ESG uncertainty to verified reporting.</h2>
+          </div>
+          <p>Each section builds one layer of the narrative: market problem, evidence schema, source capture, automation coverage, and report-ready standards mapping.</p>
+        </div>
+        <div class="directory-grid">
+          <a href="#landscape" class="directory-card" data-nav>
+            <span>01</span>
+            <h3>Landscape</h3>
+            <p>Why ESG ratings diverge and why source-level evidence matters.</p>
+          </a>
+          <a href="#schema" class="directory-card" data-nav>
+            <span>02</span>
+            <h3>Schema Explorer</h3>
+            <p>How many parameters are collected and the surface-level route used to collect them.</p>
+          </a>
+          <a href="#environmental" class="directory-card" data-nav>
+            <span>03</span>
+            <h3>Environmental</h3>
+            <p>Energy, emissions, water, circularity, biodiversity, and environmental controls.</p>
+          </a>
+          <a href="#social" class="directory-card" data-nav>
+            <span>04</span>
+            <h3>Social</h3>
+            <p>Workforce, value-chain workers, communities, consumers, and policy evidence.</p>
+          </a>
+          <a href="#governance" class="directory-card" data-nav>
+            <span>05</span>
+            <h3>Governance</h3>
+            <p>Business conduct, board, risk, tax, cyber, AI governance, and controls.</p>
+          </a>
+          <a href="#coverage" class="directory-card" data-nav>
+            <span>06</span>
+            <h3>Coverage</h3>
+            <p>Automation footprint, consultant review needs, and auditable deliverables.</p>
+          </a>
+          <a href="#standards" class="directory-card" data-nav>
+            <span>07</span>
+            <h3>Standards</h3>
+            <p>The reporting frameworks supported by the parameter and evidence model.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SCHEMA EXPLORER ============ -->
+    <section id="schema" class="app-page py-16">
+      <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <div class="text-xs uppercase tracking-wider text-accent-500">Schema Explorer</div>
+          <h2 class="text-3xl lg:text-4xl font-bold mt-2">What gets collected, and how</h2>
+          <p class="mt-3 text-slate-400 max-w-3xl">
+            A category-level map of the ESG evidence schema: how many parameters are collected in each area and which collection routes support them before line-item evidence review.
+          </p>
+        </div>
+        <div class="flex items-center gap-2 text-xs">
+          <button class="filter-btn active" data-schema-filter="all">All</button>
+          <button class="filter-btn" data-schema-filter="E">Environmental</button>
+          <button class="filter-btn" data-schema-filter="S">Social</button>
+          <button class="filter-btn" data-schema-filter="G">Governance</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8" id="schemaKpi"></div>
+
+      <div class="schema-method-key mb-6">
+        <div><span class="pill pill-scada">SCADA</span><p>Operational telemetry and site systems</p></div>
+        <div><span class="pill pill-twin">Twin</span><p>Computed metrics and scenarios</p></div>
+        <div><span class="pill pill-ai_doc">AI Docs</span><p>Compliance/document extraction</p></div>
+        <div><span class="pill pill-erp">Enterprise</span><p>ERP, HR, finance, procurement, risk systems</p></div>
+        <div><span class="pill pill-manual">Review</span><p>Consultant review, surveys, assumptions, sign-off</p></div>
+      </div>
+
+      <div id="schemaExplorer" class="schema-grid"></div>
+    </section>
+
+    <!-- ============ LANDSCAPE — OECD findings ============ -->
+    <section id="landscape" class="app-page py-16">
+      <div class="mb-10">
+        <div class="text-xs uppercase tracking-wider text-slate-500">The Landscape</div>
+        <h2 class="text-3xl lg:text-4xl font-bold mt-2">Why ESG ratings disagree</h2>
+        <p class="mt-3 text-slate-400 max-w-3xl">
+          The OECD's 2025 study analysed ≈2,000 metrics from 8 leading rating providers covering &gt;80% of the market. The headline: ratings diverge because <em>metric selection</em> diverges. The same topic can be measured with 1 metric by one provider and 113 by another.
+        </p>
+      </div>
+
+      <div id="headlineStats" class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8"></div>
+
+      <!-- 9 figures grid -->
+      <div class="grid lg:grid-cols-2 gap-6">
+        <div class="chart-card">
+          <div class="chart-title">Fig 1 · Metric coverage across 23 topics</div>
+          <div class="chart-sub">Sunburst — slice size = share of total metrics. Governance dominates; Biodiversity, Taxation, Competition under-represented.</div>
+          <div class="chart-purpose"><strong>Purpose</strong><span>Shows that ESG ratings do not weight topics evenly. This establishes why a transparent source taxonomy is needed before automation or reporting can be trusted.</span></div>
+          <div id="chart_sunburst" class="chart-canvas"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Fig 2 · Coverage range across providers</div>
+          <div class="chart-sub">Min/avg/max metrics per topic — Corporate Governance from 4 to 113 across 8 providers.</div>
+          <div class="chart-purpose"><strong>Purpose</strong><span>Shows that rating providers can measure the same topic with very different metric depth. The bridge value is a reusable evidence base that can serve multiple rating and reporting demands.</span></div>
+          <div id="chart_range" class="chart-canvas"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Fig 3 · Metric characteristic mix</div>
+          <div class="chart-sub">68% input-based (policies + activities). Only 30% outputs. 2% capture business environment.</div>
+          <div class="chart-purpose"><strong>Purpose</strong><span>Shows why ESG cannot be solved by meters alone. Policies, activities, outputs, and business context all need structured capture and review.</span></div>
+          <div id="chart_charMix" class="chart-canvas"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Fig 4 · Policies / Activities / Outputs per topic</div>
+          <div class="chart-sub">Stacked share — note Climate Resilience is 51% business-environment; DEI and Energy are output-heavy.</div>
+          <div class="chart-purpose"><strong>Purpose</strong><span>Shows which topics depend on policy evidence, operational activity, measured outputs, or external context. This explains why the platform combines telemetry, documents, enterprise systems, and consultant review.</span></div>
+          <div id="chart_paob" class="chart-canvas"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Fig 5 · Qualitative vs Quantitative</div>
+          <div class="chart-sub">Overall 72% qualitative. Even GHG &amp; Energy plateau at ~49% quantitative.</div>
+          <div class="chart-purpose"><strong>Purpose</strong><span>Shows that report readiness requires both quantitative data and qualitative evidence. AI compliance ingestion and review workflows are as important as operational data capture.</span></div>
+          <div id="chart_qual" class="chart-canvas"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Fig 8 · Two approaches per topic</div>
+          <div class="chart-sub">Scatter: share quantitative (x) vs share output-based (y). Pollution / Energy / GHG sit top-right; Biodiversity / Climate Resilience bottom-left.</div>
+          <div class="chart-purpose"><strong>Purpose</strong><span>Shows which topics are naturally automation-friendly and which need more interpretive evidence. This supports the automation-level split in the schema.</span></div>
+          <div id="chart_scatter" class="chart-canvas"></div>
+        </div>
+        <div class="chart-card lg:col-span-2">
+          <div class="chart-title">Fig 9 · Supply-chain metric availability</div>
+          <div class="chart-sub">Only 7% of all metrics. GHG (Scope 3) carries most weight; over half the topics have ≤2 supply-chain metrics.</div>
+          <div class="chart-purpose"><strong>Purpose</strong><span>Shows the supply-chain evidence gap. Supplier files, procurement data, product carbon footprints, freight records, and contracts become critical inputs for auditable ESG reporting.</span></div>
+          <div id="chart_supply" class="chart-canvas h-72"></div>
+        </div>
+      </div>
+
+      <div class="mt-10 grid md:grid-cols-2 gap-4" id="divergenceCallouts"></div>
+    </section>
+
+    <!-- ============ ENVIRONMENTAL ============ -->
+    <section id="environmental" class="app-page py-16">
+      <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <div class="text-xs uppercase tracking-wider text-env">Pillar · Environmental</div>
+          <h2 class="text-3xl lg:text-4xl font-bold mt-2">The 265 environmental parameters we automate</h2>
+          <p class="mt-3 text-slate-400 max-w-3xl" id="envSummary"></p>
+        </div>
+        <div class="flex items-center gap-2 text-xs">
+          <button class="filter-btn active" data-env-filter="all">All</button>
+          <button class="filter-btn" data-env-filter="scada">SCADA</button>
+          <button class="filter-btn" data-env-filter="twin">Digital Twin</button>
+          <button class="filter-btn" data-env-filter="ai_doc">AI Docs</button>
+          <button class="filter-btn" data-env-filter="erp">ERP</button>
+        </div>
+      </div>
+
+      <!-- Environmental KPI strip -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6" id="envKpi"></div>
+
+      <!-- Environmental charts -->
+      <div class="grid lg:grid-cols-2 gap-6 mb-10">
+        <div class="chart-card">
+          <div class="chart-title">Parameter distribution by category</div>
+          <div class="chart-sub">Donut of E1-E7 weighting.</div>
+          <div id="chart_envDonut" class="chart-canvas h-64"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Capture method × automation level</div>
+          <div class="chart-sub">How much of the environmental schema can be supported by each collection route?</div>
+          <div id="chart_envCapture" class="chart-canvas h-64"></div>
+        </div>
+        <div class="chart-card lg:col-span-2">
+          <div class="chart-title">Schema tree — Environmental</div>
+          <div class="chart-sub">A visual map of the taxonomy. Use hover for details and the category cards below for clean drill-down.</div>
+          <div id="chart_envTree" class="chart-canvas h-[640px]"></div>
+        </div>
+      </div>
+
+      <!-- Category explorer -->
+      <div class="explorer-grid" id="envExplorer"></div>
+    </section>
+
+    <!-- ============ SOCIAL ============ -->
+    <section id="social" class="app-page py-16">
+      <div class="mb-8">
+        <div class="text-xs uppercase tracking-wider text-soc">Pillar · Social</div>
+        <h2 class="text-3xl lg:text-4xl font-bold mt-2">Social parameters</h2>
+        <p class="mt-3 text-slate-400 max-w-3xl" id="socSummary"></p>
+      </div>
+      <div class="grid lg:grid-cols-2 gap-6 mb-8">
+        <div class="chart-card">
+          <div class="chart-title">Distribution across S1-S4</div>
+          <div id="chart_socDonut" class="chart-canvas h-64"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Schema tree — Social</div>
+          <div class="chart-sub">A quiet structure map; detailed social evidence is opened through the category cards below.</div>
+          <div id="chart_socTree" class="chart-canvas h-[520px]"></div>
+        </div>
+      </div>
+      <div class="explorer-grid" id="socExplorer"></div>
+    </section>
+
+    <!-- ============ GOVERNANCE ============ -->
+    <section id="governance" class="app-page py-16">
+      <div class="mb-8">
+        <div class="text-xs uppercase tracking-wider text-gov">Pillar · Governance</div>
+        <h2 class="text-3xl lg:text-4xl font-bold mt-2">Governance parameters</h2>
+        <p class="mt-3 text-slate-400 max-w-3xl" id="govSummary"></p>
+      </div>
+      <div class="grid lg:grid-cols-2 gap-6 mb-8">
+        <div class="chart-card">
+          <div class="chart-title">Distribution across G1-G5</div>
+          <div id="chart_govDonut" class="chart-canvas h-64"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Schema tree — Governance</div>
+          <div class="chart-sub">A quiet structure map; governance controls and evidence are opened through the category cards below.</div>
+          <div id="chart_govTree" class="chart-canvas h-[520px]"></div>
+        </div>
+      </div>
+      <div class="explorer-grid" id="govExplorer"></div>
+    </section>
+
+    <!-- ============ OUR COVERAGE ============ -->
+    <section id="coverage" class="app-page py-16">
+      <div class="mb-8">
+        <div class="text-xs uppercase tracking-wider text-accent-500">Our Coverage</div>
+        <h2 class="text-3xl lg:text-4xl font-bold mt-2">What we automate vs. what stays manual</h2>
+        <p class="mt-3 text-slate-400 max-w-3xl">
+          Across the 371 tracked parameters, here's the automation profile of our digital-twin + SCADA + AI document ingestion + ERP-integration stack. The value is broader than energy: it creates a controlled evidence layer for compliance automation, consultant review, assurance readiness, and verified reporting.
+        </p>
+      </div>
+      <div class="deliverable-strip mb-8">
+        <div>
+          <span>Consultants get</span>
+          <strong>Source lineage</strong>
+          <p>Every parameter keeps a path back to the originating system, document, calculation, or reviewer decision.</p>
+        </div>
+        <div>
+          <span>Compliance teams get</span>
+          <strong>Smart automation</strong>
+          <p>Policies, permits, certificates, supplier evidence, controls, and exceptions are extracted and organized.</p>
+        </div>
+        <div>
+          <span>Auditors get</span>
+          <strong>Evidence packs</strong>
+          <p>Supporting files, units, standards tags, confidence level, and review notes are preserved for assurance.</p>
+        </div>
+        <div>
+          <span>Leadership gets</span>
+          <strong>Report-ready data</strong>
+          <p>Structured, defensible ESG outputs that can be used to generate verified disclosures and performance plans.</p>
+        </div>
+      </div>
+      <div class="grid md:grid-cols-3 gap-4 mb-8" id="coverageKpi"></div>
+      <div class="grid lg:grid-cols-2 gap-6">
+        <div class="chart-card">
+          <div class="chart-title">Automation level across the dataset</div>
+          <div id="chart_autoLevel" class="chart-canvas h-72"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Capture method footprint</div>
+          <div id="chart_captureFootprint" class="chart-canvas h-72"></div>
+        </div>
+        <div class="chart-card lg:col-span-2">
+          <div class="chart-title">Heatmap — Category × Capture method (parameter counts)</div>
+          <div id="chart_heatmap" class="chart-canvas h-96"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STANDARDS ============ -->
+    <section id="standards" class="app-page py-16">
+      <div class="mb-8">
+        <div class="text-xs uppercase tracking-wider text-slate-400">Reference</div>
+        <h2 class="text-3xl lg:text-4xl font-bold mt-2">Industry standards we map to</h2>
+        <p class="mt-3 text-slate-400 max-w-3xl">
+          Every parameter in the schema is tagged to the disclosure standards that require it, so the same evidence base can support multiple reporting frameworks. Last verified May 2026.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4" id="standardsGrid"></div>
+    </section>
+
+    <footer class="py-12 border-t border-ink-700 text-xs text-slate-500 text-center">
+      Built as an interactive walkthrough · Data: OECD <em>Behind ESG Ratings</em> (2025), ESRS (Dec 2025 simplification), IFRS S2 (Dec 2025 amendments), GHG Protocol, GRI, TNFD, SBTi, CDP.<br/>
+      Standards snapshot verified May 2026. This is a marketing / educational artefact — not an audit opinion.
+    </footer>
+  </main>
+
+  <!-- PARAM DETAIL MODAL -->
+  <div id="paramModal" class="fixed inset-0 z-50 hidden bg-ink-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="modal-panel narrow">
+      <div class="modal-header">
+        <div>
+          <div class="modal-kicker" id="modalId"></div>
+          <h3 class="modal-title" id="modalName"></h3>
+        </div>
+        <button onclick="closeModal()" class="icon-btn" aria-label="Close">×</button>
+      </div>
+      <div id="modalBody" class="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- CATEGORY PARAMETER MODAL -->
+  <div id="categoryModal" class="fixed inset-0 z-50 hidden bg-ink-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <div>
+          <div class="modal-kicker" id="categoryModalKicker"></div>
+          <h3 class="modal-title" id="categoryModalTitle"></h3>
+          <p class="modal-subtitle" id="categoryModalSubtitle"></p>
+        </div>
+        <button onclick="closeCategoryModal()" class="icon-btn" aria-label="Close">×</button>
+      </div>
+      <div class="modal-body">
+        <div id="categoryModalBody"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHART INSIGHT MODAL -->
+  <div id="insightModal" class="fixed inset-0 z-50 hidden bg-ink-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <div>
+          <div class="modal-kicker" id="insightModalKicker">Chart insight</div>
+          <h3 class="modal-title" id="insightModalTitle"></h3>
+          <p class="modal-subtitle" id="insightModalSubtitle"></p>
+        </div>
+        <button onclick="closeInsightModal()" class="icon-btn" aria-label="Close">×</button>
+      </div>
+      <div class="modal-body" id="insightModalBody"></div>
+    </div>
+  </div>
+
+  <!-- GUIDED WALKTHROUGH MODAL -->
+  <div id="walkthroughModal" class="fixed inset-0 z-50 hidden bg-ink-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <div>
+          <div class="modal-kicker" id="walkthroughModalKicker"></div>
+          <h3 class="modal-title" id="walkthroughModalTitle"></h3>
+          <p class="modal-subtitle" id="walkthroughModalSubtitle"></p>
+        </div>
+        <button onclick="closeWalkthroughModal()" class="icon-btn" aria-label="Close">×</button>
+      </div>
+      <div class="modal-body">
+        <div id="walkthroughModalBody"></div>
+        <div class="walkthrough-actions">
+          <button class="btn-ghost" id="walkthroughPrev">Previous</button>
+          <button class="btn-primary" id="walkthroughNext">Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/charts.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

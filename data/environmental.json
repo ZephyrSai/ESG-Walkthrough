@@ -1,0 +1,519 @@
+{
+  "pillar": "Environmental",
+  "code": "E",
+  "summary": "265 environmental parameters mapped across 7 ESRS-aligned categories and 29 subcategories. Each parameter is tagged with the industry standards that require it (ESRS E1-E5, IFRS S2, GRI 300s, GHG Protocol, SASB, CDP, TCFD, TNFD, SBTi, EU Taxonomy) and the capture method we can automate it through (SCADA, Digital Twin, AI Document Ingestion, ERP integration, manual).",
+  "capture_legend": {
+    "scada": { "label": "SCADA / IoT Evidence", "desc": "Real-time operational evidence from PLCs, flow meters, energy meters, emissions monitors, leak detectors, quality probes, and site systems", "color": "#0ea5e9" },
+    "twin":  { "label": "Digital Twin Computation", "desc": "Computed metrics, scenarios, mass-energy balances, emission factors, operational simulations, and target pathway modelling", "color": "#6366f1" },
+    "ai_doc":{ "label": "AI Compliance Ingestion", "desc": "OCR + LLM extraction from permits, policies, certificates, supplier PCFs, contracts, utility bills, lab reports, EPDs, board packs, and audit files", "color": "#10b981" },
+    "erp":   { "label": "Enterprise System Integration", "desc": "Direct pull from SAP, Oracle, HRIS, procurement, finance, maintenance, risk, governance, and compliance systems", "color": "#f59e0b" },
+    "manual":{ "label": "Consultant Review / Surveys", "desc": "Structured review for assumptions, stakeholder input, qualitative attestations, third-party assessments, exceptions, and sign-off",   "color": "#94a3b8" }
+  },
+  "automation_legend": {
+    "high":   { "label": "High automation", "color": "#16a34a" },
+    "medium": { "label": "Medium automation", "color": "#eab308" },
+    "low":    { "label": "Low automation", "color": "#ef4444" }
+  },
+  "categories": [
+    {
+      "id": "E1",
+      "name": "Climate Change (GHG Emissions)",
+      "standard_anchor": "ESRS E1 · IFRS S2 · GRI 305 · GHG Protocol · CDP Climate · TCFD · SBTi",
+      "description": "End-to-end GHG inventory across Scope 1, 2, 3 — the core of any climate disclosure. Aligned to the GHG Protocol Corporate Standard, Scope 2 Guidance, and Scope 3 Standard (15 categories + proposed Category 16 facilitated emissions).",
+      "subcategories": [
+        {
+          "id": "E1-S1",
+          "name": "Scope 1 — Direct Emissions",
+          "description": "Emissions from sources owned or controlled by the company.",
+          "parameters": [
+            { "id": "E1-S1-001", "name": "Stationary combustion — Natural gas", "unit": "tCO2e", "standards": ["GHGP", "ESRS E1", "GRI 305-1", "CDP C6.1"], "capture": ["scada","ai_doc","erp"], "automation": "high", "desc": "Boiler/furnace consumption × NG emission factor; SCADA gas flow meters + utility bills + SAP MM purchase orders." },
+            { "id": "E1-S1-002", "name": "Stationary combustion — Diesel (gensets)",      "unit": "tCO2e", "standards": ["GHGP","ESRS E1","GRI 305-1"], "capture": ["scada","ai_doc","erp"], "automation": "high",   "desc": "Genset hour meters + tank level sensors + diesel delivery invoices." },
+            { "id": "E1-S1-003", "name": "Stationary combustion — Fuel oil",               "unit": "tCO2e", "standards": ["GHGP","ESRS E1","GRI 305-1"], "capture": ["scada","ai_doc","erp"], "automation": "high",   "desc": "Tank gauge telemetry + fuel oil deliveries." },
+            { "id": "E1-S1-004", "name": "Stationary combustion — LPG / Propane",          "unit": "tCO2e", "standards": ["GHGP","ESRS E1","GRI 305-1"], "capture": ["ai_doc","erp"],           "automation": "high",   "desc": "Cylinder/bulk delivery invoices via AI ingestion." },
+            { "id": "E1-S1-005", "name": "Stationary combustion — Coal",                   "unit": "tCO2e", "standards": ["GHGP","ESRS E1","GRI 305-1"], "capture": ["scada","ai_doc","erp"], "automation": "high",   "desc": "Coal yard scale + boiler feed rate + supplier invoices." },
+            { "id": "E1-S1-006", "name": "Stationary combustion — Biomass (biogenic CO2)", "unit": "tCO2e","standards": ["GHGP","ESRS E1","GRI 305-1"],"capture": ["scada","ai_doc"],"automation":"high","desc":"Reported separately per GHGP; biogenic carbon disclosure under ESRS E1-6." },
+            { "id": "E1-S1-007", "name": "Stationary combustion — Hydrogen (grey/blue/green)","unit": "tCO2e","standards": ["GHGP","ESRS E1"], "capture": ["scada","ai_doc"], "automation": "high",  "desc": "H2 source attestation drives upstream Scope 3 split." },
+            { "id": "E1-S1-008", "name": "Stationary combustion — Syngas / Refinery gas",  "unit": "tCO2e", "standards": ["GHGP","ESRS E1"], "capture": ["scada","twin"], "automation": "high",  "desc": "Process gas composition from gas chromatograph + flow." },
+            { "id": "E1-S1-009", "name": "Stationary combustion — Waste-derived fuels",    "unit": "tCO2e", "standards": ["GHGP","ESRS E1"], "capture": ["scada","ai_doc"],"automation": "medium","desc": "RDF / sludge with variable emission factor." },
+            { "id": "E1-S1-010", "name": "Flaring emissions",                              "unit": "tCO2e", "standards": ["GHGP","ESRS E1","SASB EM-EP-110a.2"], "capture": ["scada","twin"], "automation": "high", "desc": "Flare gas flow + composition + combustion efficiency (digital twin)." },
+            { "id": "E1-S1-011", "name": "Venting CO2",                                    "unit": "tCO2e", "standards": ["GHGP","ESRS E1","SASB EM-EP-110a.2"], "capture": ["scada","twin"], "automation": "medium","desc": "Vent flow + composition; sweetening units, separators." },
+            { "id": "E1-S1-012", "name": "Mobile combustion — On-road fleet (diesel)",     "unit": "tCO2e", "standards": ["GHGP","ESRS E1","GRI 305-1"], "capture": ["scada","ai_doc","erp"], "automation": "high",  "desc": "Telematics fuel-burn + fuel card data + SAP fleet module." },
+            { "id": "E1-S1-013", "name": "Mobile combustion — On-road fleet (gasoline)",   "unit": "tCO2e", "standards": ["GHGP","ESRS E1"], "capture": ["ai_doc","erp"], "automation": "high",  "desc": "Fuel card aggregation via AI ingestion." },
+            { "id": "E1-S1-014", "name": "Mobile combustion — On-road fleet (CNG/LNG)",    "unit": "tCO2e", "standards": ["GHGP","ESRS E1"], "capture": ["scada","ai_doc"],"automation": "high",  "desc": "CNG dispenser telemetry + tank readings." },
+            { "id": "E1-S1-015", "name": "Mobile combustion — Off-road equipment",         "unit": "tCO2e", "standards": ["GHGP","ESRS E1"], "capture": ["scada","ai_doc"],"automation": "high",  "desc": "Forklifts, loaders, generators — hour meters + fuel issues." },
+            { "id": "E1-S1-016", "name": "Mobile combustion — Marine vessels",             "unit": "tCO2e", "standards": ["GHGP","ESRS E1","IMO DCS"], "capture": ["scada","ai_doc"], "automation": "high",  "desc": "Bunker delivery notes + flowmeters; IMO DCS." },
+            { "id": "E1-S1-017", "name": "Mobile combustion — Rail (own locomotives)",     "unit": "tCO2e", "standards": ["GHGP","ESRS E1"], "capture": ["scada","ai_doc"], "automation": "high",   "desc": "Locomotive fuel issue records + telematics." },
+            { "id": "E1-S1-018", "name": "Mobile combustion — Aircraft (corporate)",       "unit": "tCO2e", "standards": ["GHGP","ESRS E1"], "capture": ["ai_doc","erp"],   "automation": "high",   "desc": "Flight log + fuel uplift via expense system." },
+            { "id": "E1-S1-019", "name": "Process emissions — Cement (calcination)",       "unit": "tCO2e", "standards": ["GHGP","ESRS E1","SASB EM-CM-110a.1"], "capture": ["scada","twin"], "automation": "high", "desc": "Raw meal feed × CaO content × stoich factor; twin balance." },
+            { "id": "E1-S1-020", "name": "Process emissions — Steel (BF/BOF, DRI)",        "unit": "tCO2e", "standards": ["GHGP","ESRS E1","SASB EM-IS-110a.1"], "capture": ["scada","twin"], "automation": "high", "desc": "Coke/coal consumption + DRI reductant + carbon balance." },
+            { "id": "E1-S1-021", "name": "Process emissions — Aluminium (PFC anode effect)","unit": "tCO2e","standards": ["GHGP","ESRS E1","IAI"], "capture": ["scada","twin"], "automation": "high", "desc": "Anode effect frequency × duration (Tabereaux/slope)." },
+            { "id": "E1-S1-022", "name": "Process emissions — Ammonia / Fertilizer",       "unit": "tCO2e", "standards": ["GHGP","ESRS E1"], "capture": ["scada","twin"], "automation": "high", "desc": "Reformer feed + purge CO2 from urea synthesis." },
+            { "id": "E1-S1-023", "name": "Process emissions — Glass / Ceramics",           "unit": "tCO2e", "standards": ["GHGP","ESRS E1"], "capture": ["scada","twin"], "automation": "high", "desc": "Batch carbonates + cullet ratio." },
+            { "id": "E1-S1-024", "name": "Process emissions — Lime production",            "unit": "tCO2e", "standards": ["GHGP","ESRS E1"], "capture": ["scada","twin"], "automation": "high", "desc": "Limestone feed × CaO content." },
+            { "id": "E1-S1-025", "name": "Process emissions — Chemicals (HFC byproduct, N2O)","unit":"tCO2e","standards":["GHGP","ESRS E1"], "capture": ["scada","twin"], "automation": "high", "desc": "HCFC-22 HFC-23 byproduct; nitric/adipic N2O." },
+            { "id": "E1-S1-026", "name": "Process emissions — Pulp & Paper (lime kiln)",   "unit": "tCO2e", "standards": ["GHGP","ESRS E1"], "capture": ["scada","twin"], "automation": "high", "desc": "Make-up CaCO3 + kiln efficiency." },
+            { "id": "E1-S1-027", "name": "Process emissions — Petrochemical cracking",     "unit": "tCO2e", "standards": ["GHGP","ESRS E1"], "capture": ["scada","twin"], "automation": "high", "desc": "Feedstock C-balance, decoke." },
+            { "id": "E1-S1-028", "name": "Fugitive — HFC refrigerants (R-410A, R-134a, etc.)","unit":"tCO2e","standards":["GHGP","ESRS E1","GRI 305-6","Kigali"], "capture":["scada","ai_doc","erp"],"automation":"high","desc":"BMS refrigerant leak detection + service records + procurement (kg recharged × GWP)." },
+            { "id": "E1-S1-029", "name": "Fugitive — SF6 (electrical switchgear)",         "unit": "tCO2e", "standards": ["GHGP","ESRS E1","GRI 305-6"], "capture": ["scada","ai_doc"], "automation": "high", "desc": "Nameplate × leak rate; or kg top-up from service logs." },
+            { "id": "E1-S1-030", "name": "Fugitive — Methane (oil & gas LDAR)",            "unit": "tCO2e", "standards": ["GHGP","ESRS E1","OGMP 2.0"], "capture": ["scada","twin"], "automation": "high", "desc": "Continuous methane monitors + OGI + component counts; OGMP Level 4/5." },
+            { "id": "E1-S1-031", "name": "Fugitive — Methane (coal mining VAM)",           "unit": "tCO2e", "standards": ["GHGP","ESRS E1"], "capture": ["scada"], "automation": "high", "desc": "Ventilation air methane monitors." },
+            { "id": "E1-S1-032", "name": "Fugitive — Methane (landfill / wastewater)",     "unit": "tCO2e", "standards": ["GHGP","ESRS E1","IPCC 2006"], "capture": ["scada","twin"], "automation": "medium", "desc": "LFG flow + composition; first-order decay model." },
+            { "id": "E1-S1-033", "name": "Fugitive — N2O (wastewater treatment)",          "unit": "tCO2e", "standards": ["GHGP","ESRS E1"], "capture": ["scada","twin"], "automation": "medium", "desc": "Aeration off-gas sampling; IPCC Tier 2." },
+            { "id": "E1-S1-034", "name": "Fugitive — CO2 (carbon capture leakage)",        "unit": "tCO2e", "standards": ["GHGP","ESRS E1"], "capture": ["scada"], "automation": "medium", "desc": "Pipeline/well integrity monitoring." },
+            { "id": "E1-S1-035", "name": "Agriculture — Enteric fermentation",             "unit": "tCO2e", "standards": ["GHGP","ESRS E1","GRI 305-1"], "capture": ["erp","ai_doc"], "automation": "medium", "desc": "Headcount × IPCC EF by species/region." },
+            { "id": "E1-S1-036", "name": "Agriculture — Manure management",                "unit": "tCO2e", "standards": ["GHGP","ESRS E1"], "capture": ["scada","ai_doc"], "automation": "medium", "desc": "Manure systems + N excretion × EF." },
+            { "id": "E1-S1-037", "name": "Agriculture — Soil management (N2O)",            "unit": "tCO2e", "standards": ["GHGP","ESRS E1"], "capture": ["ai_doc","erp"], "automation": "medium", "desc": "Synthetic N applied × IPCC EF." },
+            { "id": "E1-S1-038", "name": "Land use change — Deforestation emissions",      "unit": "tCO2e", "standards": ["GHGP Land Sector","ESRS E1","ESRS E4","SBTi FLAG"], "capture": ["ai_doc","twin"], "automation": "medium", "desc": "Concession boundaries + satellite forest loss × C-stock." },
+            { "id": "E1-S1-039", "name": "Removals — Biogenic sequestration",              "unit": "tCO2e", "standards": ["GHGP Land Sector","ESRS E1-7","SBTi FLAG"], "capture": ["twin","ai_doc"], "automation": "medium", "desc": "Biomass growth modelling; afforestation projects." },
+            { "id": "E1-S1-040", "name": "Removals — Engineered (DACCS, BECCS, biochar)",  "unit": "tCO2e", "standards": ["ESRS E1-7","SBTi"], "capture": ["scada","twin"], "automation": "high", "desc": "Sensor-based removal measurement; durability tier." },
+            { "id": "E1-S1-041", "name": "Scope 1 — Total gross emissions",                "unit": "tCO2e", "standards": ["GHGP","ESRS E1-6","GRI 305-1","IFRS S2"], "capture": ["twin"], "automation": "high", "desc": "Aggregated by digital twin." },
+            { "id": "E1-S1-042", "name": "Scope 1 — by GHG (CO2/CH4/N2O/HFC/PFC/SF6/NF3)", "unit": "t",     "standards": ["GHGP","ESRS E1-6","IFRS S2"],"capture":["twin"], "automation": "high",  "desc": "Disaggregated by Kyoto basket gas." },
+            { "id": "E1-S1-043", "name": "Scope 1 — by country / facility",                "unit": "tCO2e", "standards": ["ESRS E1-6","CDP C7"],"capture":["twin","erp"], "automation": "high",  "desc": "Geographic disaggregation." },
+            { "id": "E1-S1-044", "name": "Scope 1 — Intensity (per unit production)",      "unit": "tCO2e/unit","standards":["ESRS E1-6","GRI 305-4","SASB"],"capture":["twin","erp"],"automation":"high","desc":"Production volumes from MES/ERP." }
+          ]
+        },
+        {
+          "id": "E1-S2",
+          "name": "Scope 2 — Energy Indirect",
+          "description": "Emissions from generation of purchased electricity, steam, heat, cooling.",
+          "parameters": [
+            { "id": "E1-S2-001", "name": "Purchased electricity — Location-based",         "unit": "tCO2e","standards":["GHGP S2","ESRS E1-6","GRI 305-2","IFRS S2"],"capture":["scada","ai_doc","erp"],"automation":"high","desc":"Sub-meters + utility bills + grid average EF." },
+            { "id": "E1-S2-002", "name": "Purchased electricity — Market-based",           "unit": "tCO2e","standards":["GHGP S2","ESRS E1-6","GRI 305-2","IFRS S2"],"capture":["ai_doc","erp"],"automation":"high","desc":"Contractual instruments (EACs/RECs/GOs/PPAs)." },
+            { "id": "E1-S2-003", "name": "Purchased steam",                                "unit": "tCO2e","standards":["GHGP S2","ESRS E1-6"],"capture":["scada","ai_doc"],"automation":"high","desc":"Steam flow + supplier EF attestation." },
+            { "id": "E1-S2-004", "name": "Purchased heat",                                 "unit": "tCO2e","standards":["GHGP S2","ESRS E1-6"],"capture":["scada","ai_doc"],"automation":"high","desc":"District heating meter + supplier disclosure." },
+            { "id": "E1-S2-005", "name": "Purchased cooling",                              "unit": "tCO2e","standards":["GHGP S2","ESRS E1-6"],"capture":["scada","ai_doc"],"automation":"high","desc":"Chilled water BTU meter + supplier EF." },
+            { "id": "E1-S2-006", "name": "Renewable electricity share (consumed)",         "unit": "%",    "standards":["ESRS E1-5","GRI 302","CDP C8","RE100"],"capture":["ai_doc","erp"],"automation":"high","desc":"Per Scope 2 Quality Criteria — bundled EACs/PPAs." },
+            { "id": "E1-S2-007", "name": "PPA / VPPA volumes",                             "unit": "MWh",  "standards":["ESRS E1-5","RE100"],"capture":["ai_doc","erp"],"automation":"high","desc":"Contract docs + invoices via AI ingestion." },
+            { "id": "E1-S2-008", "name": "Self-generated renewable (on-site solar/wind)",  "unit": "MWh",  "standards":["GHGP S2","ESRS E1-5","RE100"],"capture":["scada"],"automation":"high","desc":"Inverter / wind controller telemetry." },
+            { "id": "E1-S2-009", "name": "Self-consumed vs exported energy",               "unit": "MWh",  "standards":["ESRS E1-5"],"capture":["scada"],"automation":"high","desc":"Net export via revenue meter." },
+            { "id": "E1-S2-010", "name": "EAC / REC retirements",                          "unit": "MWh",  "standards":["GHGP S2","RE100"],"capture":["ai_doc"],"automation":"high","desc":"Certificate registry extracts." },
+            { "id": "E1-S2-011", "name": "Residual mix factor used",                       "unit": "kgCO2e/MWh","standards":["GHGP S2"],"capture":["manual"],"automation":"low","desc":"AIB/IEA residual mix (annual)." },
+            { "id": "E1-S2-012", "name": "Scope 2 LB total",                               "unit": "tCO2e","standards":["GHGP S2","ESRS E1-6","IFRS S2"],"capture":["twin"],"automation":"high","desc":"Twin aggregate (LB)." },
+            { "id": "E1-S2-013", "name": "Scope 2 MB total",                               "unit": "tCO2e","standards":["GHGP S2","ESRS E1-6","IFRS S2"],"capture":["twin"],"automation":"high","desc":"Twin aggregate (MB)." },
+            { "id": "E1-S2-014", "name": "Scope 2 by country grid",                        "unit": "tCO2e","standards":["ESRS E1-6"],"capture":["twin"],"automation":"high","desc":"Country-level EF & LB/MB split." },
+            { "id": "E1-S2-015", "name": "Scope 2 intensity (per revenue / production)",   "unit": "kgCO2e/$","standards":["ESRS E1-6","GRI 305-4","SASB"],"capture":["twin","erp"],"automation":"high","desc":"ERP revenue × Scope 2." }
+          ]
+        },
+        {
+          "id": "E1-S3",
+          "name": "Scope 3 — Value Chain (15 Categories)",
+          "description": "Per GHG Protocol Scope 3 Standard. Category 15 limited to investments per 2025 revision; proposed Category 16 covers facilitated/insured emissions.",
+          "parameters": [
+            { "id": "E1-S3-C01-001", "name": "Cat 1 — Purchased goods & services (spend-based)",    "unit": "tCO2e","standards":["GHGP S3","ESRS E1-6","CDP C6.5"],"capture":["erp","twin"],"automation":"high","desc":"SAP MM/Oracle Procurement spend × EEIO factors." },
+            { "id": "E1-S3-C01-002", "name": "Cat 1 — Purchased goods & services (activity-based)", "unit": "tCO2e","standards":["GHGP S3","ESRS E1-6"],"capture":["erp","twin","ai_doc"],"automation":"high","desc":"Material masters × qty × supplier PCFs." },
+            { "id": "E1-S3-C01-003", "name": "Cat 1 — Supplier PCFs ingested",                       "unit": "count","standards":["GHGP S3","PACT","WBCSD PACT","ISO 14067"],"capture":["ai_doc"],"automation":"high","desc":"Supplier EPDs / PCFs ingested via AI." },
+            { "id": "E1-S3-C01-004", "name": "Cat 1 — Primary data share",                           "unit": "%",    "standards":["GHGP S3","CDP C6.5"],"capture":["twin"],"automation":"high","desc":"Quality metric: actual supplier data vs proxies." },
+            { "id": "E1-S3-C02-001", "name": "Cat 2 — Capital goods",                                "unit": "tCO2e","standards":["GHGP S3","ESRS E1-6"],"capture":["erp","twin"],"automation":"high","desc":"Capex spend × EEIO; SAP AA asset register." },
+            { "id": "E1-S3-C03-001", "name": "Cat 3 — Fuel & energy-related (upstream)",             "unit": "tCO2e","standards":["GHGP S3","ESRS E1-6"],"capture":["twin","erp"],"automation":"high","desc":"WTT factors applied to S1/S2 fuels + T&D losses." },
+            { "id": "E1-S3-C03-002", "name": "Cat 3 — T&D losses",                                   "unit": "MWh",  "standards":["GHGP S3"],"capture":["scada","twin"],"automation":"high","desc":"Grid loss % × consumption." },
+            { "id": "E1-S3-C04-001", "name": "Cat 4 — Upstream transport & distribution",            "unit": "tCO2e","standards":["GHGP S3","GLEC","ISO 14083"],"capture":["erp","ai_doc","twin"],"automation":"high","desc":"3PL freight bills + GLEC factors." },
+            { "id": "E1-S3-C04-002", "name": "Cat 4 — Modal split (road/rail/sea/air)",              "unit": "%",    "standards":["GHGP S3","GLEC","ISO 14083"],"capture":["erp"],"automation":"high","desc":"TMS / freight invoices." },
+            { "id": "E1-S3-C05-001", "name": "Cat 5 — Waste generated in operations",                "unit": "tCO2e","standards":["GHGP S3"],"capture":["scada","ai_doc","erp"],"automation":"high","desc":"Weighbridge + waste manifests + disposal route EF." },
+            { "id": "E1-S3-C06-001", "name": "Cat 6 — Business travel (air, rail, hotel, road)",     "unit": "tCO2e","standards":["GHGP S3","DEFRA"],"capture":["ai_doc","erp"],"automation":"high","desc":"TMC feeds + expense reports + DEFRA EFs." },
+            { "id": "E1-S3-C07-001", "name": "Cat 7 — Employee commuting",                           "unit": "tCO2e","standards":["GHGP S3"],"capture":["manual","ai_doc"],"automation":"medium","desc":"Survey + HR address data + modal EF." },
+            { "id": "E1-S3-C07-002", "name": "Cat 7 — Remote/home working emissions",                "unit": "tCO2e","standards":["GHGP S3","Anthesis Homeworking"],"capture":["manual","ai_doc"],"automation":"medium","desc":"Days WFH × home energy factor." },
+            { "id": "E1-S3-C08-001", "name": "Cat 8 — Upstream leased assets",                       "unit": "tCO2e","standards":["GHGP S3"],"capture":["scada","ai_doc"],"automation":"medium","desc":"Lessor utility data; operational vs equity boundary." },
+            { "id": "E1-S3-C09-001", "name": "Cat 9 — Downstream transport & distribution",          "unit": "tCO2e","standards":["GHGP S3","GLEC"],"capture":["erp","ai_doc"],"automation":"high","desc":"Customer-paid freight; distributor data." },
+            { "id": "E1-S3-C10-001", "name": "Cat 10 — Processing of sold products",                 "unit": "tCO2e","standards":["GHGP S3"],"capture":["manual","ai_doc"],"automation":"low","desc":"B2B intermediate products; downstream survey." },
+            { "id": "E1-S3-C11-001", "name": "Cat 11 — Use of sold products (direct)",               "unit": "tCO2e","standards":["GHGP S3","ESRS E1-6","SASB"],"capture":["twin","erp"],"automation":"high","desc":"Product energy spec × lifetime × use intensity." },
+            { "id": "E1-S3-C11-002", "name": "Cat 11 — Use of sold products (indirect)",             "unit": "tCO2e","standards":["GHGP S3"],"capture":["twin"],"automation":"medium","desc":"Indirect use phase (e.g. enabling products)." },
+            { "id": "E1-S3-C12-001", "name": "Cat 12 — End-of-life treatment of sold products",      "unit": "tCO2e","standards":["GHGP S3"],"capture":["twin","ai_doc"],"automation":"medium","desc":"EOL pathway split × disposal EF." },
+            { "id": "E1-S3-C13-001", "name": "Cat 13 — Downstream leased assets",                    "unit": "tCO2e","standards":["GHGP S3"],"capture":["ai_doc","scada"],"automation":"medium","desc":"Tenant utility data." },
+            { "id": "E1-S3-C14-001", "name": "Cat 14 — Franchises",                                  "unit": "tCO2e","standards":["GHGP S3"],"capture":["ai_doc","erp"],"automation":"medium","desc":"Franchisee reporting." },
+            { "id": "E1-S3-C15-001", "name": "Cat 15 — Investments (financed emissions, PCAF)",      "unit": "tCO2e","standards":["GHGP S3","PCAF","ESRS E1-6"],"capture":["erp","ai_doc"],"automation":"medium","desc":"PCAF asset class methodologies; attribution factors." },
+            { "id": "E1-S3-C16-001", "name": "Cat 16 (proposed) — Facilitated emissions",            "unit": "tCO2e","standards":["GHGP S3 draft","PCAF Capital Markets"],"capture":["ai_doc"],"automation":"low","desc":"Underwriting/insurance facilitated; under consultation." },
+            { "id": "E1-S3-001",    "name": "Scope 3 — Total gross emissions",                       "unit": "tCO2e","standards":["GHGP S3","ESRS E1-6","IFRS S2"],"capture":["twin"],"automation":"high","desc":"Twin aggregate across categories." },
+            { "id": "E1-S3-002",    "name": "Scope 3 — Materiality screening result",                "unit": "list", "standards":["GHGP S3"],"capture":["twin"],"automation":"high","desc":"Category relevance assessment." },
+            { "id": "E1-S3-003",    "name": "Scope 3 — Data quality score (per category)",           "unit": "1-5",  "standards":["GHGP S3","PACT"],"capture":["twin"],"automation":"high","desc":"Pedigree matrix on each category." },
+            { "id": "E1-S3-004",    "name": "Scope 3 — Avoided emissions (handprint)",               "unit": "tCO2e","standards":["WBCSD Avoided","SBTi"],"capture":["twin"],"automation":"medium","desc":"Reported separately; not netted." }
+          ]
+        },
+        {
+          "id": "E1-T",
+          "name": "Targets, Transition Plan & Internal Carbon",
+          "description": "Forward-looking climate metrics aligned with ESRS E1-1 to E1-4, IFRS S2, SBTi.",
+          "parameters": [
+            { "id": "E1-T-001", "name": "Net-zero target year (Scope 1+2)",              "unit": "year","standards":["ESRS E1-1","IFRS S2","SBTi Net-Zero"],"capture":["ai_doc"],"automation":"high","desc":"Extracted from strategy docs / board approval." },
+            { "id": "E1-T-002", "name": "Net-zero target year (Scope 3)",                "unit": "year","standards":["ESRS E1-1","SBTi Net-Zero"],"capture":["ai_doc"],"automation":"high","desc":"Separate S3 commitment." },
+            { "id": "E1-T-003", "name": "Near-term SBTi target (1.5°C aligned)",         "unit": "%/yr","standards":["SBTi","ESRS E1-4"],"capture":["ai_doc"],"automation":"high","desc":"% absolute reduction vs base year." },
+            { "id": "E1-T-004", "name": "Base year & emissions",                         "unit": "year/tCO2e","standards":["GHGP","ESRS E1-6","SBTi"],"capture":["ai_doc","twin"],"automation":"high","desc":"Recalculation policy." },
+            { "id": "E1-T-005", "name": "Transition plan disclosure (CapEx/OpEx aligned)","unit":"$",  "standards":["ESRS E1-1","TCFD","TPT"],"capture":["erp","ai_doc"],"automation":"medium","desc":"Capex roadmap tagged climate." },
+            { "id": "E1-T-006", "name": "Internal carbon price",                          "unit": "$/tCO2e","standards":["CDP C11","IFRS S2"],"capture":["ai_doc"],"automation":"high","desc":"Shadow vs internal fee." },
+            { "id": "E1-T-007", "name": "Carbon credit retirements (offsets)",            "unit": "tCO2e","standards":["ESRS E1-7","SBTi BVCM"],"capture":["ai_doc"],"automation":"high","desc":"Registry retirements (Verra, Gold Standard)." },
+            { "id": "E1-T-008", "name": "EU Taxonomy CapEx alignment — Climate Mitigation","unit":"%","standards":["EU Taxonomy"],"capture":["erp","ai_doc"],"automation":"medium","desc":"Capex aligned to TSC." },
+            { "id": "E1-T-009", "name": "EU Taxonomy OpEx alignment — Climate Mitigation","unit": "%","standards":["EU Taxonomy"],"capture":["erp","ai_doc"],"automation":"medium","desc":"Opex aligned to TSC." },
+            { "id": "E1-T-010", "name": "EU Taxonomy Revenue alignment",                  "unit": "%","standards":["EU Taxonomy"],"capture":["erp","ai_doc"],"automation":"medium","desc":"Revenue from eligible & aligned activities." },
+            { "id": "E1-T-011", "name": "Executive remuneration linked to climate KPIs",  "unit": "y/n","standards":["IFRS S2","ESRS E1-1","CDP C1.3"],"capture":["ai_doc"],"automation":"high","desc":"From remuneration policy." },
+            { "id": "E1-T-012", "name": "Climate scenario analysis performed",           "unit": "y/n","standards":["IFRS S2","ESRS E1-3","TCFD"],"capture":["ai_doc","twin"],"automation":"high","desc":"1.5°C, 2°C, 3°C scenarios." },
+            { "id": "E1-T-013", "name": "Climate-related capex (current year)",          "unit": "$",  "standards":["ESRS E1-3","TCFD"],"capture":["erp"],"automation":"high","desc":"SAP CO internal orders tagged." },
+            { "id": "E1-T-014", "name": "Climate-related R&D",                           "unit": "$",  "standards":["ESRS E1-3"],"capture":["erp"],"automation":"high","desc":"R&D expense by project." }
+          ]
+        },
+        {
+          "id": "E1-R",
+          "name": "Physical & Transition Risk",
+          "description": "Climate Resilience & Adaptation — TCFD/IFRS S2/ESRS E1-9 risk metrics.",
+          "parameters": [
+            { "id": "E1-R-001", "name": "Assets in flood zones (100yr / 500yr)",       "unit": "$/count","standards":["IFRS S2","ESRS E1-9","TCFD"],"capture":["twin","ai_doc"],"automation":"high","desc":"Geo-located asset register × hazard layer." },
+            { "id": "E1-R-002", "name": "Assets in heat stress / wet-bulb hazard zones","unit":"count","standards":["IFRS S2","ESRS E1-9"],"capture":["twin"],"automation":"high","desc":"WBGT / heat days projections." },
+            { "id": "E1-R-003", "name": "Assets in wildfire risk zones",                "unit": "count","standards":["IFRS S2","ESRS E1-9"],"capture":["twin"],"automation":"high","desc":"Fire weather index overlay." },
+            { "id": "E1-R-004", "name": "Assets in tropical cyclone exposure",          "unit": "count","standards":["IFRS S2","ESRS E1-9"],"capture":["twin"],"automation":"high","desc":"Historical track + RCP projection." },
+            { "id": "E1-R-005", "name": "Assets in sea-level rise zones (1m/2m)",       "unit": "count","standards":["IFRS S2","ESRS E1-9"],"capture":["twin"],"automation":"high","desc":"Coastal asset elevation × SLR." },
+            { "id": "E1-R-006", "name": "Stranded asset value (under 1.5°C)",            "unit": "$","standards":["IFRS S2","ESRS E1-9","TPT"],"capture":["twin","ai_doc"],"automation":"medium","desc":"NPV under transition scenarios." },
+            { "id": "E1-R-007", "name": "Revenue from fossil-fuel-linked activities",    "unit": "$/%","standards":["ESRS E1-9","EU Taxonomy"],"capture":["erp"],"automation":"high","desc":"Revenue line tagging." },
+            { "id": "E1-R-008", "name": "Carbon price exposure (CBAM / ETS liability)",  "unit": "$","standards":["EU CBAM","ESRS E1-9"],"capture":["erp","ai_doc"],"automation":"high","desc":"Embedded emissions × certificate price." },
+            { "id": "E1-R-009", "name": "Insurance loss from climate events (current)",  "unit": "$","standards":["ESRS E1-9"],"capture":["ai_doc","erp"],"automation":"medium","desc":"Claims data." },
+            { "id": "E1-R-010", "name": "Business continuity downtime — climate",        "unit": "hrs","standards":["ESRS E1-9","IFRS S2"],"capture":["scada","erp"],"automation":"high","desc":"SCADA outage logs tied to weather events." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E2",
+      "name": "Pollution (Air, Water, Soil, Substances)",
+      "standard_anchor": "ESRS E2 · GRI 305 / 306 · SASB · CDP",
+      "description": "Pollutants emitted to air, water and soil; substances of very high concern; secondary microplastics (new under ESRS E2 2025).",
+      "subcategories": [
+        {
+          "id": "E2-A",
+          "name": "Air pollutants (non-GHG)",
+          "parameters": [
+            { "id": "E2-A-001", "name": "NOx emissions",                           "unit": "t",   "standards":["ESRS E2-4","GRI 305-7","SASB"],"capture":["scada","twin"],"automation":"high","desc":"CEMS stack monitoring." },
+            { "id": "E2-A-002", "name": "SOx emissions",                           "unit": "t",   "standards":["ESRS E2-4","GRI 305-7"],"capture":["scada","twin"],"automation":"high","desc":"CEMS + fuel sulfur content." },
+            { "id": "E2-A-003", "name": "Particulate matter (PM10/PM2.5)",        "unit": "t",   "standards":["ESRS E2-4","GRI 305-7"],"capture":["scada"],"automation":"high","desc":"Opacity + iso-kinetic sampling." },
+            { "id": "E2-A-004", "name": "Volatile organic compounds (VOCs)",       "unit": "t",   "standards":["ESRS E2-4","GRI 305-7"],"capture":["scada","twin"],"automation":"high","desc":"LDAR + tank breathing models." },
+            { "id": "E2-A-005", "name": "Carbon monoxide (CO)",                    "unit": "t",   "standards":["ESRS E2-4","GRI 305-7"],"capture":["scada"],"automation":"high","desc":"CEMS." },
+            { "id": "E2-A-006", "name": "Ammonia (NH3)",                          "unit": "t",   "standards":["ESRS E2-4"],"capture":["scada"],"automation":"high","desc":"SCR slip / livestock." },
+            { "id": "E2-A-007", "name": "Heavy metals to air (Hg, Pb, Cd, As)",   "unit": "kg",  "standards":["ESRS E2-4","E-PRTR"],"capture":["scada","ai_doc"],"automation":"medium","desc":"Periodic stack tests." },
+            { "id": "E2-A-008", "name": "Dioxins / Furans",                       "unit": "g TEQ","standards":["ESRS E2-4","Stockholm Conv."],"capture":["ai_doc"],"automation":"low","desc":"Lab certificates." },
+            { "id": "E2-A-009", "name": "Persistent organic pollutants (POPs)",   "unit": "kg",  "standards":["ESRS E2-4","Stockholm Conv."],"capture":["ai_doc"],"automation":"low","desc":"Lab analysis." },
+            { "id": "E2-A-010", "name": "Odour complaints",                        "unit": "count","standards":["ESRS E2-4"],"capture":["manual","ai_doc"],"automation":"low","desc":"Community feedback log." }
+          ]
+        },
+        {
+          "id": "E2-W",
+          "name": "Water pollutants",
+          "parameters": [
+            { "id": "E2-W-001", "name": "BOD discharged",                          "unit": "t",   "standards":["ESRS E2-4","GRI 303-4"],"capture":["scada","ai_doc"],"automation":"high","desc":"Lab samples + flow." },
+            { "id": "E2-W-002", "name": "COD discharged",                          "unit": "t",   "standards":["ESRS E2-4","GRI 303-4"],"capture":["scada","ai_doc"],"automation":"high","desc":"Sondes + lab." },
+            { "id": "E2-W-003", "name": "Total Suspended Solids (TSS)",            "unit": "t",   "standards":["ESRS E2-4","GRI 303-4"],"capture":["scada"],"automation":"high","desc":"Turbidity probes." },
+            { "id": "E2-W-004", "name": "Nitrogen discharged",                     "unit": "t",   "standards":["ESRS E2-4","GRI 303-4"],"capture":["scada","ai_doc"],"automation":"high","desc":"TN analyser." },
+            { "id": "E2-W-005", "name": "Phosphorus discharged",                   "unit": "t",   "standards":["ESRS E2-4","GRI 303-4"],"capture":["scada","ai_doc"],"automation":"high","desc":"TP analyser." },
+            { "id": "E2-W-006", "name": "Oil & grease",                            "unit": "kg",  "standards":["ESRS E2-4","SASB EM-EP"],"capture":["scada","ai_doc"],"automation":"high","desc":"Oil-in-water sensors." },
+            { "id": "E2-W-007", "name": "Heavy metals to water",                   "unit": "kg",  "standards":["ESRS E2-4","E-PRTR"],"capture":["ai_doc"],"automation":"medium","desc":"Periodic lab." },
+            { "id": "E2-W-008", "name": "Pesticides / Herbicides",                "unit": "kg",  "standards":["ESRS E2-4"],"capture":["ai_doc"],"automation":"low","desc":"Lab analysis." },
+            { "id": "E2-W-009", "name": "Pharmaceutical residues",                "unit": "kg",  "standards":["ESRS E2-4"],"capture":["ai_doc"],"automation":"low","desc":"Lab analysis." }
+          ]
+        },
+        {
+          "id": "E2-S",
+          "name": "Soil & substances of concern",
+          "parameters": [
+            { "id": "E2-S-001", "name": "Soil contamination incidents",            "unit": "count","standards":["ESRS E2-4","GRI 306"],"capture":["ai_doc"],"automation":"low","desc":"Site assessments." },
+            { "id": "E2-S-002", "name": "Land remediation expenditure",            "unit": "$","standards":["ESRS E2-4","GRI 306"],"capture":["erp"],"automation":"high","desc":"GL tagged." },
+            { "id": "E2-S-003", "name": "Substances of Very High Concern (REACH SVHC)","unit":"t","standards":["ESRS E2-5","REACH"],"capture":["erp","ai_doc"],"automation":"high","desc":"MM material masters × hazard list." },
+            { "id": "E2-S-004", "name": "Chemicals on candidate list used",        "unit": "t","standards":["ESRS E2-5","REACH"],"capture":["erp","ai_doc"],"automation":"high","desc":"Quantity by chemical ID." },
+            { "id": "E2-S-005", "name": "PFAS use & emissions",                    "unit": "kg","standards":["ESRS E2-4","Stockholm Conv."],"capture":["ai_doc","erp"],"automation":"medium","desc":"Inventory + supplier disclosure." },
+            { "id": "E2-S-006", "name": "Ozone-depleting substances (Montreal)",   "unit": "kg ODP","standards":["ESRS E2-4","Montreal"],"capture":["ai_doc","erp"],"automation":"high","desc":"Procurement & service records." },
+            { "id": "E2-S-007", "name": "Mercury inventory (Minamata)",            "unit": "kg","standards":["ESRS E2-5","Minamata"],"capture":["erp","ai_doc"],"automation":"high","desc":"Equipment inventory." }
+          ]
+        },
+        {
+          "id": "E2-M",
+          "name": "Microplastics & Marine",
+          "parameters": [
+            { "id": "E2-M-001", "name": "Secondary microplastics released (new ESRS E2 2025)","unit":"t","standards":["ESRS E2-4"],"capture":["twin","ai_doc"],"automation":"medium","desc":"Tyre wear, textile fibres, paint, pellet loss." },
+            { "id": "E2-M-002", "name": "Pellet (nurdle) loss to environment",       "unit":"kg","standards":["ESRS E2-4","OCS"],"capture":["scada","ai_doc"],"automation":"medium","desc":"Operation Clean Sweep audit." },
+            { "id": "E2-M-003", "name": "Plastic packaging entering marine env (modelled)","unit":"t","standards":["ESRS E2-4"],"capture":["twin"],"automation":"low","desc":"Probabilistic model." }
+          ]
+        },
+        {
+          "id": "E2-I",
+          "name": "Incidents, fines, controversies",
+          "parameters": [
+            { "id": "E2-I-001", "name": "Pollution incidents (count, severity)",   "unit": "count","standards":["ESRS E2-4","GRI 306-3","SASB"],"capture":["ai_doc","erp"],"automation":"high","desc":"Incident management module." },
+            { "id": "E2-I-002", "name": "Pollution-related fines & penalties",     "unit": "$","standards":["GRI 2-27","SASB"],"capture":["erp","ai_doc"],"automation":"high","desc":"Legal expense lines." },
+            { "id": "E2-I-003", "name": "Open enforcement notices",                "unit": "count","standards":["GRI 2-27"],"capture":["ai_doc"],"automation":"medium","desc":"Regulator correspondence." },
+            { "id": "E2-I-004", "name": "Environmental controversies (media)",     "unit": "count","standards":["SASB"],"capture":["ai_doc","manual"],"automation":"medium","desc":"Adverse media screening." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E3",
+      "name": "Water & Marine Resources",
+      "standard_anchor": "ESRS E3 · GRI 303 · CDP Water · SASB · CEO Water Mandate",
+      "description": "Water stewardship — withdrawal, consumption, discharge, stress exposure, quality.",
+      "subcategories": [
+        {
+          "id": "E3-WD",
+          "name": "Withdrawal",
+          "parameters": [
+            { "id": "E3-WD-001", "name": "Total water withdrawal",                  "unit": "ML","standards":["ESRS E3-4","GRI 303-3","CDP W1.2"],"capture":["scada","ai_doc"],"automation":"high","desc":"Magmeters + utility bills." },
+            { "id": "E3-WD-002", "name": "Withdrawal — Surface water (rivers/lakes)","unit": "ML","standards":["ESRS E3-4","GRI 303-3"],"capture":["scada"],"automation":"high","desc":"Intake flow meter." },
+            { "id": "E3-WD-003", "name": "Withdrawal — Groundwater",                 "unit": "ML","standards":["ESRS E3-4","GRI 303-3"],"capture":["scada","ai_doc"],"automation":"high","desc":"Well meters + permits." },
+            { "id": "E3-WD-004", "name": "Withdrawal — Seawater",                    "unit": "ML","standards":["ESRS E3-4","GRI 303-3"],"capture":["scada"],"automation":"high","desc":"Intake meter." },
+            { "id": "E3-WD-005", "name": "Withdrawal — Produced/Process water",      "unit": "ML","standards":["ESRS E3-4","GRI 303-3"],"capture":["scada","twin"],"automation":"high","desc":"O&G produced water." },
+            { "id": "E3-WD-006", "name": "Withdrawal — Third-party (municipal)",     "unit": "ML","standards":["ESRS E3-4","GRI 303-3"],"capture":["ai_doc","scada"],"automation":"high","desc":"Utility bills + meter." },
+            { "id": "E3-WD-007", "name": "Withdrawal in water-stressed areas (WRI Aqueduct)","unit":"ML","standards":["ESRS E3-4","GRI 303-3","CDP W1.2c"],"capture":["twin","scada"],"automation":"high","desc":"Site geocode × stress overlay." },
+            { "id": "E3-WD-008", "name": "Withdrawal in high baseline water stress (>40%)","unit":"ML","standards":["ESRS E3-4","CDP W1.2c"],"capture":["twin"],"automation":"high","desc":"Subset of above." }
+          ]
+        },
+        {
+          "id": "E3-WC",
+          "name": "Consumption & Efficiency",
+          "parameters": [
+            { "id": "E3-WC-001", "name": "Total water consumption",                  "unit": "ML","standards":["ESRS E3-4","GRI 303-5","CDP W1.2b"],"capture":["twin","scada"],"automation":"high","desc":"Withdrawal − Discharge." },
+            { "id": "E3-WC-002", "name": "Water intensity (per unit production)",    "unit": "m3/unit","standards":["ESRS E3-4","SASB"],"capture":["twin","erp"],"automation":"high","desc":"Process water / production." },
+            { "id": "E3-WC-003", "name": "Water reused/recycled",                    "unit": "ML","standards":["ESRS E3-4","GRI 303-3"],"capture":["scada","twin"],"automation":"high","desc":"Recycle loop meter." },
+            { "id": "E3-WC-004", "name": "Water recycle ratio",                      "unit": "%","standards":["ESRS E3-4"],"capture":["twin"],"automation":"high","desc":"Reuse / total withdrawal." },
+            { "id": "E3-WC-005", "name": "Water efficiency improvement vs base year","unit": "%","standards":["ESRS E3-3"],"capture":["twin"],"automation":"high","desc":"YoY trend." }
+          ]
+        },
+        {
+          "id": "E3-WQ",
+          "name": "Discharge & Quality",
+          "parameters": [
+            { "id": "E3-WQ-001", "name": "Total water discharge",                    "unit": "ML","standards":["ESRS E3-4","GRI 303-4"],"capture":["scada"],"automation":"high","desc":"Outfall meter." },
+            { "id": "E3-WQ-002", "name": "Discharge — Surface water",                "unit": "ML","standards":["ESRS E3-4","GRI 303-4"],"capture":["scada"],"automation":"high","desc":"Per receiving body." },
+            { "id": "E3-WQ-003", "name": "Discharge — Groundwater",                  "unit": "ML","standards":["ESRS E3-4","GRI 303-4"],"capture":["scada"],"automation":"high","desc":"Injection wells." },
+            { "id": "E3-WQ-004", "name": "Discharge — Seawater",                     "unit": "ML","standards":["ESRS E3-4","GRI 303-4"],"capture":["scada"],"automation":"high","desc":"Marine outfall." },
+            { "id": "E3-WQ-005", "name": "Discharge — Third-party (sewer)",          "unit": "ML","standards":["ESRS E3-4","GRI 303-4"],"capture":["scada","ai_doc"],"automation":"high","desc":"Trade effluent." },
+            { "id": "E3-WQ-006", "name": "Discharge temperature",                    "unit": "°C","standards":["ESRS E3-4","GRI 303-4"],"capture":["scada"],"automation":"high","desc":"Thermal pollution." },
+            { "id": "E3-WQ-007", "name": "Permit exceedances",                       "unit": "count","standards":["GRI 2-27"],"capture":["scada","ai_doc"],"automation":"high","desc":"Auto-flag vs permit limits." }
+          ]
+        },
+        {
+          "id": "E3-WS",
+          "name": "Strategy & Risk",
+          "parameters": [
+            { "id": "E3-WS-001", "name": "% of sites with water risk assessment",     "unit": "%","standards":["ESRS E3-1","CDP W3"],"capture":["twin","ai_doc"],"automation":"high","desc":"Aqueduct/WWF Filter coverage." },
+            { "id": "E3-WS-002", "name": "Water target — withdrawal reduction",       "unit": "%","standards":["ESRS E3-3","CDP W7"],"capture":["ai_doc"],"automation":"high","desc":"Public target." },
+            { "id": "E3-WS-003", "name": "Water-related capex",                       "unit": "$","standards":["ESRS E3-3"],"capture":["erp"],"automation":"high","desc":"GL tagged." },
+            { "id": "E3-WS-004", "name": "AWS / WAVE certified sites",                "unit": "count","standards":["AWS Standard"],"capture":["ai_doc"],"automation":"high","desc":"Certificate ingestion." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E4",
+      "name": "Biodiversity & Ecosystems",
+      "standard_anchor": "ESRS E4 · GRI 304 · TNFD (LEAP) · SBTN · CDP Forests",
+      "description": "Nature-related impacts, dependencies, risks and opportunities. Aligned with TNFD's LEAP approach: Locate-Evaluate-Assess-Prepare.",
+      "subcategories": [
+        {
+          "id": "E4-L",
+          "name": "LEAP-L: Locate (interface with nature)",
+          "parameters": [
+            { "id": "E4-L-001", "name": "Sites in or near KBAs / protected areas",   "unit": "count","standards":["ESRS E4-1","GRI 304-1","TNFD","CDP F"],"capture":["twin","ai_doc"],"automation":"high","desc":"Asset geocode × WDPA/KBA overlay." },
+            { "id": "E4-L-002", "name": "Sites in IBA / Ramsar wetlands",            "unit": "count","standards":["ESRS E4-1","TNFD"],"capture":["twin"],"automation":"high","desc":"BirdLife / Ramsar layers." },
+            { "id": "E4-L-003", "name": "Sites in priority biomes (forest, mangrove, peatland, coral)","unit":"count","standards":["ESRS E4-1","TNFD","SBTN"],"capture":["twin"],"automation":"high","desc":"GADM + biome layer." },
+            { "id": "E4-L-004", "name": "Sites with high freshwater ecosystem sensitivity","unit":"count","standards":["TNFD","SBTN"],"capture":["twin"],"automation":"high","desc":"FBC / HydroAtlas." },
+            { "id": "E4-L-005", "name": "Land footprint total",                       "unit": "ha","standards":["ESRS E4-5","GRI 304-3"],"capture":["twin","erp"],"automation":"high","desc":"Site polygons." },
+            { "id": "E4-L-006", "name": "Supply chain hotspots (sourcing geographies)","unit":"%","standards":["TNFD","SBTN","CDP F"],"capture":["erp","ai_doc"],"automation":"medium","desc":"Supplier geocoding." }
+          ]
+        },
+        {
+          "id": "E4-E",
+          "name": "LEAP-E: Evaluate (impacts & dependencies)",
+          "parameters": [
+            { "id": "E4-E-001", "name": "Land-use change driven by operations",      "unit": "ha","standards":["ESRS E4-5","TNFD","SBTi FLAG"],"capture":["twin","ai_doc"],"automation":"high","desc":"Remote sensing change detection." },
+            { "id": "E4-E-002", "name": "Deforestation footprint (gross, primary)",  "unit": "ha","standards":["EUDR","CDP F","ESRS E4-5"],"capture":["twin","ai_doc"],"automation":"high","desc":"Hansen/RADD alerts × concession." },
+            { "id": "E4-E-003", "name": "Forest conversion-free supply chain coverage","unit":"%","standards":["AFi","SBTN","CDP F","EUDR"],"capture":["ai_doc","erp"],"automation":"medium","desc":"Traceability + monitoring." },
+            { "id": "E4-E-004", "name": "Habitat impact (MSA loss)",                  "unit": "MSA·ha","standards":["TNFD","SBTN"],"capture":["twin"],"automation":"medium","desc":"GLOBIO / LC-IMPACT." },
+            { "id": "E4-E-005", "name": "Species impact (IUCN Red List exposure)",   "unit": "count","standards":["TNFD","GRI 304-4"],"capture":["twin"],"automation":"high","desc":"Asset overlay × species range." },
+            { "id": "E4-E-006", "name": "Invasive species introductions",            "unit": "count","standards":["TNFD"],"capture":["manual"],"automation":"low","desc":"Site reports." },
+            { "id": "E4-E-007", "name": "Pollinator-friendly area on owned land",    "unit": "ha","standards":["TNFD"],"capture":["twin","ai_doc"],"automation":"medium","desc":"Land-mgmt records." },
+            { "id": "E4-E-008", "name": "Dependency — Pollination",                  "unit": "qual","standards":["TNFD ENCORE"],"capture":["twin"],"automation":"medium","desc":"ENCORE materiality." },
+            { "id": "E4-E-009", "name": "Dependency — Water flow regulation",         "unit": "qual","standards":["TNFD ENCORE"],"capture":["twin"],"automation":"medium","desc":"ENCORE." },
+            { "id": "E4-E-010", "name": "Dependency — Climate regulation",            "unit": "qual","standards":["TNFD ENCORE"],"capture":["twin"],"automation":"medium","desc":"ENCORE." },
+            { "id": "E4-E-011", "name": "Dependency — Soil quality",                  "unit": "qual","standards":["TNFD ENCORE"],"capture":["twin"],"automation":"medium","desc":"ENCORE." }
+          ]
+        },
+        {
+          "id": "E4-A",
+          "name": "LEAP-A: Assess (risks & opportunities)",
+          "parameters": [
+            { "id": "E4-A-001", "name": "Physical nature risk score",                "unit": "1-5","standards":["TNFD"],"capture":["twin"],"automation":"high","desc":"Aggregated hazard exposure." },
+            { "id": "E4-A-002", "name": "Transition nature risk score",              "unit": "1-5","standards":["TNFD"],"capture":["twin"],"automation":"high","desc":"Policy/market/tech." },
+            { "id": "E4-A-003", "name": "Systemic risk (biome collapse exposure)",   "unit": "1-5","standards":["TNFD"],"capture":["twin"],"automation":"medium","desc":"Tipping point proximity." },
+            { "id": "E4-A-004", "name": "Revenue at risk from nature degradation",   "unit": "$","standards":["TNFD","ESRS E4-3"],"capture":["twin","erp"],"automation":"medium","desc":"Scenario model." },
+            { "id": "E4-A-005", "name": "Nature-based opportunity revenue",          "unit": "$","standards":["TNFD","ESRS E4-3"],"capture":["erp"],"automation":"medium","desc":"Eco-products." }
+          ]
+        },
+        {
+          "id": "E4-P",
+          "name": "LEAP-P: Prepare (actions & targets)",
+          "parameters": [
+            { "id": "E4-P-001", "name": "No-deforestation commitment (cut-off date)", "unit": "y/n","standards":["AFi","EUDR","CDP F","SBTi FLAG"],"capture":["ai_doc"],"automation":"high","desc":"Policy ingestion." },
+            { "id": "E4-P-002", "name": "Biodiversity transition plan",              "unit": "y/n","standards":["ESRS E4-1","TNFD"],"capture":["ai_doc"],"automation":"high","desc":"Plan disclosure." },
+            { "id": "E4-P-003", "name": "SBTN target — Land",                        "unit": "y/n","standards":["SBTN"],"capture":["ai_doc"],"automation":"high","desc":"Validated target." },
+            { "id": "E4-P-004", "name": "SBTN target — Freshwater",                  "unit": "y/n","standards":["SBTN"],"capture":["ai_doc"],"automation":"high","desc":"Validated target." },
+            { "id": "E4-P-005", "name": "Land restored / rehabilitated",             "unit": "ha","standards":["ESRS E4-5","GRI 304-3"],"capture":["twin","ai_doc"],"automation":"high","desc":"Restoration project boundaries." },
+            { "id": "E4-P-006", "name": "Biodiversity offsets (mitigation hierarchy)","unit": "ha","standards":["IFC PS6","ESRS E4-5"],"capture":["ai_doc"],"automation":"medium","desc":"Offset registry." },
+            { "id": "E4-P-007", "name": "Certified deforestation-free volumes (RSPO, FSC, RTRS)","unit":"t","standards":["RSPO","FSC","RTRS","EUDR"],"capture":["ai_doc","erp"],"automation":"high","desc":"Certificate ingestion." },
+            { "id": "E4-P-008", "name": "Spend with certified suppliers",            "unit": "$","standards":["CDP F","EUDR"],"capture":["erp"],"automation":"high","desc":"PO tagging." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E5",
+      "name": "Resource Use & Circular Economy",
+      "standard_anchor": "ESRS E5 · GRI 301 / 306 · Ellen MacArthur · WBCSD CTI",
+      "description": "Material inflows, outflows, products & services for circularity. Aligned with WBCSD Circular Transition Indicators (CTI) v4.",
+      "subcategories": [
+        {
+          "id": "E5-I",
+          "name": "Material Inflows",
+          "parameters": [
+            { "id": "E5-I-001", "name": "Total weight of materials used",             "unit": "t","standards":["ESRS E5-4","GRI 301-1","CTI"],"capture":["erp","scada"],"automation":"high","desc":"SAP MM goods movements." },
+            { "id": "E5-I-002", "name": "Renewable materials share",                  "unit": "%","standards":["ESRS E5-4","GRI 301-2","CTI"],"capture":["erp","ai_doc"],"automation":"high","desc":"Material master flag + supplier docs." },
+            { "id": "E5-I-003", "name": "Recycled / secondary materials share",      "unit": "%","standards":["ESRS E5-4","GRI 301-2","CTI"],"capture":["erp","ai_doc"],"automation":"high","desc":"Material master + EPDs." },
+            { "id": "E5-I-004", "name": "Bio-based materials share",                  "unit": "%","standards":["ESRS E5-4","CTI"],"capture":["erp","ai_doc"],"automation":"high","desc":"Per material category." },
+            { "id": "E5-I-005", "name": "Critical raw materials used (EU CRM list)",  "unit": "t","standards":["ESRS E5-4","EU CRM Act"],"capture":["erp","ai_doc"],"automation":"high","desc":"New ESRS E5 datapoint." },
+            { "id": "E5-I-006", "name": "Strategic raw materials used",              "unit": "t","standards":["ESRS E5-4","EU CRM Act"],"capture":["erp"],"automation":"high","desc":"Strategic list." },
+            { "id": "E5-I-007", "name": "Packaging weight (total)",                   "unit": "t","standards":["ESRS E5-5","EU PPWR","CTI"],"capture":["erp"],"automation":"high","desc":"BOM × volume." },
+            { "id": "E5-I-008", "name": "Recycled content in packaging",              "unit": "%","standards":["ESRS E5-5","EU PPWR","EPR"],"capture":["erp","ai_doc"],"automation":"high","desc":"Per material type." }
+          ]
+        },
+        {
+          "id": "E5-O",
+          "name": "Material Outflows (Products)",
+          "parameters": [
+            { "id": "E5-O-001", "name": "Products designed for durability",          "unit": "%","standards":["ESRS E5-5","EU ESPR"],"capture":["ai_doc","erp"],"automation":"medium","desc":"Design tag in PLM." },
+            { "id": "E5-O-002", "name": "Products designed for repair",              "unit": "%","standards":["ESRS E5-5","EU ESPR","Right to Repair"],"capture":["ai_doc","erp"],"automation":"medium","desc":"Repairability index." },
+            { "id": "E5-O-003", "name": "Products designed for recycling",           "unit": "%","standards":["ESRS E5-5","EU ESPR"],"capture":["ai_doc","erp"],"automation":"medium","desc":"DfE design rules." },
+            { "id": "E5-O-004", "name": "Recyclable content of products",            "unit": "%","standards":["ESRS E5-5","CTI"],"capture":["ai_doc","erp"],"automation":"medium","desc":"Product Carbon/Circular Passport." },
+            { "id": "E5-O-005", "name": "Products with Digital Product Passport",    "unit": "%","standards":["EU ESPR","EU DPP"],"capture":["ai_doc","erp"],"automation":"medium","desc":"DPP coverage." },
+            { "id": "E5-O-006", "name": "Take-back / reverse logistics volumes",     "unit": "t","standards":["ESRS E5-5","EPR"],"capture":["erp","scada"],"automation":"high","desc":"Reverse-logistics flow." },
+            { "id": "E5-O-007", "name": "Refurbished / remanufactured units",        "unit": "count","standards":["ESRS E5-5","CTI"],"capture":["erp"],"automation":"high","desc":"Service module." },
+            { "id": "E5-O-008", "name": "EPR fees paid",                              "unit": "$","standards":["EPR"],"capture":["erp","ai_doc"],"automation":"high","desc":"Compliance scheme bills." }
+          ]
+        },
+        {
+          "id": "E5-W",
+          "name": "Waste",
+          "parameters": [
+            { "id": "E5-W-001", "name": "Total waste generated",                       "unit": "t","standards":["ESRS E5-5","GRI 306-3"],"capture":["scada","ai_doc","erp"],"automation":"high","desc":"Weighbridge + manifests." },
+            { "id": "E5-W-002", "name": "Hazardous waste generated",                   "unit": "t","standards":["ESRS E5-5","GRI 306-3","Basel"],"capture":["ai_doc","scada"],"automation":"high","desc":"Manifest classification." },
+            { "id": "E5-W-003", "name": "Non-hazardous waste generated",               "unit": "t","standards":["ESRS E5-5","GRI 306-3"],"capture":["scada","ai_doc"],"automation":"high","desc":"By stream." },
+            { "id": "E5-W-004", "name": "Waste diverted from disposal — Recycling",   "unit": "t","standards":["ESRS E5-5","GRI 306-4"],"capture":["ai_doc","scada"],"automation":"high","desc":"Recycler certificates." },
+            { "id": "E5-W-005", "name": "Waste diverted — Composting",                 "unit": "t","standards":["GRI 306-4"],"capture":["ai_doc"],"automation":"high","desc":"Compost contractor." },
+            { "id": "E5-W-006", "name": "Waste diverted — Reuse",                      "unit": "t","standards":["GRI 306-4"],"capture":["ai_doc","erp"],"automation":"medium","desc":"Internal/external reuse." },
+            { "id": "E5-W-007", "name": "Waste to disposal — Landfill",                "unit": "t","standards":["ESRS E5-5","GRI 306-5"],"capture":["ai_doc"],"automation":"high","desc":"Landfill receipts." },
+            { "id": "E5-W-008", "name": "Waste to disposal — Incineration w/ energy", "unit": "t","standards":["GRI 306-5"],"capture":["ai_doc"],"automation":"high","desc":"WtE receipts." },
+            { "id": "E5-W-009", "name": "Waste to disposal — Incineration w/o energy","unit": "t","standards":["GRI 306-5"],"capture":["ai_doc"],"automation":"high","desc":"Incineration receipts." },
+            { "id": "E5-W-010", "name": "Diversion rate",                              "unit": "%","standards":["ESRS E5-5","GRI 306","CTI"],"capture":["twin"],"automation":"high","desc":"Diverted / total." },
+            { "id": "E5-W-011", "name": "Radioactive waste",                           "unit": "m3","standards":["ESRS E5-5","IAEA"],"capture":["scada","ai_doc"],"automation":"high","desc":"Specialised tracking." }
+          ]
+        },
+        {
+          "id": "E5-C",
+          "name": "Circularity KPIs",
+          "parameters": [
+            { "id": "E5-C-001", "name": "Material Circularity Indicator (Ellen MacArthur)","unit":"0-1","standards":["EMF MCI"],"capture":["twin"],"automation":"medium","desc":"MCI score." },
+            { "id": "E5-C-002", "name": "CTI Circular Inflow",                          "unit": "%","standards":["WBCSD CTI"],"capture":["twin","erp"],"automation":"high","desc":"CTI module 1." },
+            { "id": "E5-C-003", "name": "CTI Circular Outflow",                         "unit": "%","standards":["WBCSD CTI"],"capture":["twin","erp"],"automation":"high","desc":"CTI module 2." },
+            { "id": "E5-C-004", "name": "Water Circularity",                            "unit": "%","standards":["WBCSD CTI"],"capture":["scada","twin"],"automation":"high","desc":"CTI water mod." },
+            { "id": "E5-C-005", "name": "Energy Circularity (renewable share)",         "unit": "%","standards":["WBCSD CTI"],"capture":["twin"],"automation":"high","desc":"CTI energy mod." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E6",
+      "name": "Energy Management",
+      "standard_anchor": "GRI 302 · ISO 50001 · SASB · CDP Climate",
+      "description": "Energy consumption, intensity, and renewable share — distinct from Scope 2 emissions accounting.",
+      "subcategories": [
+        {
+          "id": "E6-C",
+          "name": "Consumption",
+          "parameters": [
+            { "id": "E6-C-001", "name": "Total energy consumption (within org)",     "unit": "GJ","standards":["GRI 302-1","ESRS E1-5","CDP C8"],"capture":["scada","ai_doc"],"automation":"high","desc":"Sub-meters + utility bills." },
+            { "id": "E6-C-002", "name": "Energy consumption — Electricity",          "unit": "MWh","standards":["GRI 302-1","ESRS E1-5"],"capture":["scada","ai_doc"],"automation":"high","desc":"Per facility." },
+            { "id": "E6-C-003", "name": "Energy consumption — Natural gas",          "unit": "GJ","standards":["GRI 302-1","ESRS E1-5"],"capture":["scada","ai_doc"],"automation":"high","desc":"Per facility." },
+            { "id": "E6-C-004", "name": "Energy consumption — Steam/Heat",           "unit": "GJ","standards":["GRI 302-1","ESRS E1-5"],"capture":["scada"],"automation":"high","desc":"BTU meters." },
+            { "id": "E6-C-005", "name": "Energy consumption — Cooling",              "unit": "GJ","standards":["GRI 302-1","ESRS E1-5"],"capture":["scada"],"automation":"high","desc":"Chilled water." },
+            { "id": "E6-C-006", "name": "Energy consumption — Transportation fuels", "unit": "GJ","standards":["GRI 302-1"],"capture":["scada","ai_doc","erp"],"automation":"high","desc":"Fleet + locomotive." },
+            { "id": "E6-C-007", "name": "Energy consumption outside org (Scope 3)",  "unit": "GJ","standards":["GRI 302-2"],"capture":["twin","erp"],"automation":"medium","desc":"Value-chain estimate." }
+          ]
+        },
+        {
+          "id": "E6-R",
+          "name": "Renewable Energy",
+          "parameters": [
+            { "id": "E6-R-001", "name": "Renewable energy consumed",                 "unit": "MWh","standards":["GRI 302-1","ESRS E1-5","RE100"],"capture":["scada","ai_doc"],"automation":"high","desc":"On-site + EAC." },
+            { "id": "E6-R-002", "name": "Renewable electricity share",                "unit": "%","standards":["RE100","ESRS E1-5","CDP C8"],"capture":["twin"],"automation":"high","desc":"Renewable / total elec." },
+            { "id": "E6-R-003", "name": "Renewable fuels share (Scope 1)",            "unit": "%","standards":["ESRS E1-5"],"capture":["scada","ai_doc"],"automation":"high","desc":"Biofuel blend." },
+            { "id": "E6-R-004", "name": "On-site renewable capacity (installed)",     "unit": "MW","standards":["ESRS E1-5"],"capture":["scada","ai_doc"],"automation":"high","desc":"PV / wind nameplate." },
+            { "id": "E6-R-005", "name": "On-site renewable generation",               "unit": "MWh","standards":["ESRS E1-5","RE100"],"capture":["scada"],"automation":"high","desc":"Inverter telemetry." },
+            { "id": "E6-R-006", "name": "Battery / storage capacity",                 "unit": "MWh","standards":["ESRS E1-5"],"capture":["scada"],"automation":"high","desc":"BESS asset register." }
+          ]
+        },
+        {
+          "id": "E6-E",
+          "name": "Efficiency & Intensity",
+          "parameters": [
+            { "id": "E6-E-001", "name": "Energy intensity (per revenue)",            "unit": "GJ/$","standards":["GRI 302-3","ESRS E1-5","SASB"],"capture":["twin","erp"],"automation":"high","desc":"Energy / revenue." },
+            { "id": "E6-E-002", "name": "Energy intensity (per unit production)",    "unit": "GJ/unit","standards":["GRI 302-3","SASB"],"capture":["twin","erp"],"automation":"high","desc":"Per ton/m2/widget." },
+            { "id": "E6-E-003", "name": "Reduction in energy consumption (YoY)",     "unit": "GJ","standards":["GRI 302-4"],"capture":["twin"],"automation":"high","desc":"Baseline delta." },
+            { "id": "E6-E-004", "name": "Power Usage Effectiveness (PUE) — DCs",     "unit": "ratio","standards":["SASB TC-SI","Uptime"],"capture":["scada"],"automation":"high","desc":"Data centre KPI." },
+            { "id": "E6-E-005", "name": "Energy savings from efficiency projects",   "unit": "GJ/yr","standards":["GRI 302-5","ISO 50001"],"capture":["twin","ai_doc"],"automation":"high","desc":"M&V (IPMVP)." },
+            { "id": "E6-E-006", "name": "ISO 50001 certified sites",                  "unit": "count","standards":["ISO 50001"],"capture":["ai_doc"],"automation":"high","desc":"Certificate ingestion." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E7",
+      "name": "Environmental Management & Governance",
+      "standard_anchor": "GRI 2-27 · ISO 14001 · ESRS E1-E5 governance · TCFD/IFRS S2 Governance",
+      "description": "Cross-cutting governance, management systems, certifications, expenditures.",
+      "subcategories": [
+        {
+          "id": "E7-G",
+          "name": "Governance & Strategy",
+          "parameters": [
+            { "id": "E7-G-001", "name": "Board oversight of climate (committee, frequency)","unit":"qual","standards":["IFRS S2","ESRS GOV-1","TCFD Gov"],"capture":["ai_doc"],"automation":"high","desc":"Committee charter / minutes." },
+            { "id": "E7-G-002", "name": "Environmental policy disclosed",                "unit":"y/n","standards":["GRI 2-23","ESRS E1-1"],"capture":["ai_doc"],"automation":"high","desc":"Policy ingest." },
+            { "id": "E7-G-003", "name": "Materiality / double-materiality assessment done","unit":"y/n","standards":["ESRS 1","IFRS S1"],"capture":["ai_doc"],"automation":"high","desc":"DMA evidence." },
+            { "id": "E7-G-004", "name": "Stakeholder engagement on env issues",          "unit":"qual","standards":["GRI 2-29","ESRS"],"capture":["ai_doc"],"automation":"medium","desc":"Stakeholder log." }
+          ]
+        },
+        {
+          "id": "E7-C",
+          "name": "Certifications & EMS",
+          "parameters": [
+            { "id": "E7-C-001", "name": "ISO 14001 certified sites",                 "unit": "count","standards":["ISO 14001"],"capture":["ai_doc"],"automation":"high","desc":"Certificate ingest." },
+            { "id": "E7-C-002", "name": "ISO 14064 GHG inventory verified sites",    "unit": "count","standards":["ISO 14064"],"capture":["ai_doc"],"automation":"high","desc":"Verification statement." },
+            { "id": "E7-C-003", "name": "ISO 50001 (energy)",                        "unit": "count","standards":["ISO 50001"],"capture":["ai_doc"],"automation":"high","desc":"As above." },
+            { "id": "E7-C-004", "name": "ISO 46001 (water efficiency)",              "unit": "count","standards":["ISO 46001"],"capture":["ai_doc"],"automation":"high","desc":"As above." },
+            { "id": "E7-C-005", "name": "EMAS registered sites",                     "unit": "count","standards":["EMAS"],"capture":["ai_doc"],"automation":"high","desc":"EMAS register." }
+          ]
+        },
+        {
+          "id": "E7-A",
+          "name": "Assurance",
+          "parameters": [
+            { "id": "E7-A-001", "name": "GHG inventory assurance level",             "unit": "L / R","standards":["ISAE 3410","IFRS S2"],"capture":["ai_doc"],"automation":"high","desc":"Limited vs Reasonable." },
+            { "id": "E7-A-002", "name": "Water data assurance",                       "unit": "L / R","standards":["ISAE 3000"],"capture":["ai_doc"],"automation":"high","desc":"Assurance statement." },
+            { "id": "E7-A-003", "name": "ESRS-wide limited assurance obtained",      "unit": "y/n","standards":["CSRD/CSAD"],"capture":["ai_doc"],"automation":"high","desc":"Statutory auditor opinion." }
+          ]
+        },
+        {
+          "id": "E7-X",
+          "name": "Environmental Expenditure",
+          "parameters": [
+            { "id": "E7-X-001", "name": "Environmental protection expenditure",     "unit": "$","standards":["GRI 2-29","ESRS E2"],"capture":["erp"],"automation":"high","desc":"GL account tagging." },
+            { "id": "E7-X-002", "name": "Environmental capex",                       "unit": "$","standards":["ESRS"],"capture":["erp"],"automation":"high","desc":"AA module." },
+            { "id": "E7-X-003", "name": "Environmental opex",                        "unit": "$","standards":["ESRS"],"capture":["erp"],"automation":"high","desc":"Opex tag." },
+            { "id": "E7-X-004", "name": "Provisions for environmental liabilities", "unit": "$","standards":["IAS 37","ESRS"],"capture":["erp","ai_doc"],"automation":"high","desc":"Note disclosure." },
+            { "id": "E7-X-005", "name": "Government green grants / incentives received","unit":"$","standards":["IAS 20"],"capture":["erp"],"automation":"high","desc":"Grant lines." }
+          ]
+        }
+      ]
+    }
+  ]
+}
